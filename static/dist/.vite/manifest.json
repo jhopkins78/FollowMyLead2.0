@@ -1,0 +1,11 @@
+{
+  "js/main.jsx": {
+    "file": "js/bundle.js",
+    "name": "main",
+    "src": "js/main.jsx",
+    "isEntry": true,
+    "css": [
+      "assets/main.css"
+    ]
+  }
+}

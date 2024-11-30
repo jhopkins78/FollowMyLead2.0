@@ -1,0 +1,5 @@
+[
+    {"name": "John Doe", "email": "john@example.com", "company": "Example Corp", "score": 0.85},
+    {"name": "Jane Smith", "email": "jane@example.com", "company": "Tech Solutions", "score": 0.72},
+    {"name": "Alice Johnson", "email": "alice@example.com", "company": "Innovate Ltd", "score": 0.95}
+]

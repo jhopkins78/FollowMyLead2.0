@@ -1,0 +1,31 @@
+2024-11-30 03:04:50,932 - database - INFO - Initializing database connection...
+2024-11-30 03:04:52,096 - database - INFO - Database connection test successful
+2024-11-30 03:04:52,512 - database - INFO - Database tables created successfully
+2024-11-30 03:04:52,595 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:04:52,595 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:04:52,724 - app - INFO - Database initialized successfully
+2024-11-30 03:04:52,753 - app - INFO - Application startup complete
+2024-11-30 03:04:52,753 - __main__ - INFO - Starting Flask application...
+2024-11-30 03:04:52,753 - __main__ - INFO - Environment Configuration:
+2024-11-30 03:04:52,753 - __main__ - INFO - - DEBUG mode: False
+2024-11-30 03:04:52,754 - __main__ - INFO - - Database URL configured: True
+2024-11-30 03:04:52,754 - __main__ - INFO - - Static folder: /home/runner/FollowMyLead20/static/dist
+ * Serving Flask app 'app'
+ * Debug mode: on
+2024-11-30 03:04:52,791 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.31.196.9:5001
+2024-11-30 03:04:52,791 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:10:13,187 - __main__ - INFO - Starting minimal Flask application...
+2024-11-30 03:10:13,189 - database - INFO - Initializing database connection...
+2024-11-30 03:10:14,325 - database - INFO - Database connection test successful
+2024-11-30 03:10:14,717 - database - INFO - Database tables created successfully
+2024-11-30 03:10:14,799 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:10:14,799 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:10:14,928 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:10:14,942 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.31.196.9:5001
+2024-11-30 03:10:14,942 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
