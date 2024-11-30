@@ -1,0 +1,22 @@
+bcrypt==4.2.1
+blinker==1.9.0
+click==8.1.7
+Flask==2.3.3  # Using older Flask version compatible with Werkzeug 2.3.7
+Flask-Cors==4.0.0
+Flask-Login==0.6.3
+Flask-SQLAlchemy==3.1.1
+importlib_metadata==8.5.0
+imbalanced-learn==0.11.0
+itsdangerous==2.2.0
+Jinja2==3.1.4
+MarkupSafe==3.0.2
+numpy==1.26.3
+pandas==2.1.4
+psycopg2-binary==2.9.9
+PyJWT==2.8.0
+python-dotenv==1.0.0
+requests==2.31.0
+scikit-learn==1.4.0
+SQLAlchemy==2.0.25
+Werkzeug==2.3.7  # Using older version that doesn't require scrypt
+zipp==3.21.0
