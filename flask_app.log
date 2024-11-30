@@ -1,0 +1,542 @@
+2024-11-30 03:11:16,319 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:11:16,320 - database - INFO - Initializing database connection...
+2024-11-30 03:11:17,430 - database - INFO - Database connection test successful
+2024-11-30 03:11:17,828 - database - INFO - Database tables created successfully
+2024-11-30 03:11:17,915 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:11:17,915 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:11:17,984 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:11:17,984 - database - INFO - Initializing database connection...
+2024-11-30 03:11:18,041 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:11:18,079 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:11:18,081 - werkzeug - INFO -  * Debugger PIN: 683-538-388
+2024-11-30 03:11:19,138 - database - INFO - Database connection test successful
+2024-11-30 03:11:19,529 - database - INFO - Database tables created successfully
+2024-11-30 03:11:19,611 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:11:19,611 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:11:19,740 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:11:19,800 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.31.196.9:5001
+2024-11-30 03:11:19,801 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:11:19,801 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:11:20,283 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:11:20,284 - database - INFO - Initializing database connection...
+2024-11-30 03:11:21,404 - database - INFO - Database connection test successful
+2024-11-30 03:11:21,801 - database - INFO - Database tables created successfully
+2024-11-30 03:11:21,883 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:11:21,884 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:11:22,010 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:11:22,049 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:11:22,050 - werkzeug - INFO -  * Debugger PIN: 109-672-768
+2024-11-30 03:15:00,709 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:15:00,709 - database - INFO - Initializing database connection...
+2024-11-30 03:15:01,873 - database - INFO - Database connection test successful
+2024-11-30 03:15:02,266 - database - INFO - Database tables created successfully
+2024-11-30 03:15:02,351 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:15:02,351 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:15:02,482 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:15:02,528 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:15:02,529 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:15:02,529 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:15:02,867 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:15:02,867 - database - INFO - Initializing database connection...
+2024-11-30 03:15:04,033 - database - INFO - Database connection test successful
+2024-11-30 03:15:04,463 - database - INFO - Database tables created successfully
+2024-11-30 03:15:04,544 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:15:04,545 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:15:04,672 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:15:04,709 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:15:04,711 - werkzeug - INFO -  * Debugger PIN: 824-055-046
+2024-11-30 03:15:42,112 - werkzeug - INFO -  * Detected change in '/home/runner/FollowMyLead20/.pythonlibs/lib/python3.11/site-packages/jwt/utils.py', reloading
+2024-11-30 03:15:42,209 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:15:42,658 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:15:42,658 - database - INFO - Initializing database connection...
+2024-11-30 03:15:43,803 - database - INFO - Database connection test successful
+2024-11-30 03:15:44,216 - database - INFO - Database tables created successfully
+2024-11-30 03:15:44,300 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:15:44,301 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:15:44,430 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:15:44,504 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:15:44,510 - werkzeug - INFO -  * Debugger PIN: 767-710-005
+2024-11-30 03:15:46,354 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:15:46,354 - database - INFO - Initializing database connection...
+2024-11-30 03:15:47,491 - database - INFO - Database connection test successful
+2024-11-30 03:15:47,883 - database - INFO - Database tables created successfully
+2024-11-30 03:15:47,971 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:15:47,972 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:15:48,102 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:15:48,153 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:15:48,154 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:15:48,157 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:15:48,649 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:15:48,649 - database - INFO - Initializing database connection...
+2024-11-30 03:15:49,805 - database - INFO - Database connection test successful
+2024-11-30 03:15:50,217 - database - INFO - Database tables created successfully
+2024-11-30 03:15:50,301 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:15:50,302 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:15:50,431 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:15:50,472 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:15:50,476 - werkzeug - INFO -  * Debugger PIN: 111-551-787
+2024-11-30 03:16:47,891 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:16:47,892 - database - INFO - Initializing database connection...
+2024-11-30 03:16:49,035 - database - INFO - Database connection test successful
+2024-11-30 03:16:49,429 - database - INFO - Database tables created successfully
+2024-11-30 03:16:49,511 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:16:49,511 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:16:49,639 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:16:49,704 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:16:49,704 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:16:49,705 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:16:50,215 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:16:50,215 - database - INFO - Initializing database connection...
+2024-11-30 03:16:51,359 - database - INFO - Database connection test successful
+2024-11-30 03:16:51,771 - database - INFO - Database tables created successfully
+2024-11-30 03:16:51,854 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:16:51,854 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:16:51,981 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:16:52,017 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:16:52,018 - werkzeug - INFO -  * Debugger PIN: 113-105-860
+2024-11-30 03:24:02,286 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:24:02,286 - database - INFO - Initializing database connection...
+2024-11-30 03:24:03,955 - database - INFO - Database connection test successful
+2024-11-30 03:24:04,361 - database - INFO - Database tables created successfully
+2024-11-30 03:24:04,494 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:24:04,494 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:24:04,625 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:24:04,699 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:24:04,700 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:24:04,701 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:24:05,112 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:24:05,112 - database - INFO - Initializing database connection...
+2024-11-30 03:24:06,266 - database - INFO - Database connection test successful
+2024-11-30 03:24:06,678 - database - INFO - Database tables created successfully
+2024-11-30 03:24:06,759 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:24:06,760 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:24:06,887 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:24:06,924 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:24:06,925 - werkzeug - INFO -  * Debugger PIN: 136-515-434
+2024-11-30 03:25:17,477 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:25:17,483 - database - INFO - Initializing database connection...
+2024-11-30 03:25:18,641 - database - INFO - Database connection test successful
+2024-11-30 03:25:19,030 - database - INFO - Database tables created successfully
+2024-11-30 03:25:19,116 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:25:19,116 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:25:19,244 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:25:19,303 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:25:19,304 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:25:19,305 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:25:19,680 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:25:19,680 - database - INFO - Initializing database connection...
+2024-11-30 03:25:20,804 - database - INFO - Database connection test successful
+2024-11-30 03:25:21,268 - database - INFO - Database tables created successfully
+2024-11-30 03:25:21,351 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:25:21,351 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:25:21,479 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:25:21,521 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:25:21,523 - werkzeug - INFO -  * Debugger PIN: 454-039-628
+2024-11-30 03:26:03,411 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:26:03,413 - database - INFO - Initializing database connection...
+2024-11-30 03:26:04,568 - database - INFO - Database connection test successful
+2024-11-30 03:26:04,961 - database - INFO - Database tables created successfully
+2024-11-30 03:26:05,044 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:26:05,045 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:26:05,175 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:26:05,219 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:26:05,219 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:26:05,220 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:26:05,571 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:26:05,571 - database - INFO - Initializing database connection...
+2024-11-30 03:26:06,698 - database - INFO - Database connection test successful
+2024-11-30 03:26:07,087 - database - INFO - Database tables created successfully
+2024-11-30 03:26:07,170 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:26:07,171 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:26:07,299 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:26:07,341 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:26:07,345 - werkzeug - INFO -  * Debugger PIN: 722-954-038
+2024-11-30 03:27:04,328 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:27:04,328 - database - INFO - Initializing database connection...
+2024-11-30 03:27:05,469 - database - INFO - Database connection test successful
+2024-11-30 03:27:05,857 - database - INFO - Database tables created successfully
+2024-11-30 03:27:05,942 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:27:05,943 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:27:06,073 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:27:06,118 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:27:06,118 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:27:06,119 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:27:06,464 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:27:06,464 - database - INFO - Initializing database connection...
+2024-11-30 03:27:07,600 - database - INFO - Database connection test successful
+2024-11-30 03:27:07,988 - database - INFO - Database tables created successfully
+2024-11-30 03:27:08,071 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:27:08,072 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:27:08,202 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:27:08,250 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:27:08,252 - werkzeug - INFO -  * Debugger PIN: 577-741-131
+2024-11-30 03:27:51,423 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:27:51,424 - database - INFO - Initializing database connection...
+2024-11-30 03:27:52,553 - database - INFO - Database connection test successful
+2024-11-30 03:27:52,940 - database - INFO - Database tables created successfully
+2024-11-30 03:27:53,024 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:27:53,024 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:27:53,152 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:27:53,197 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:27:53,198 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:27:53,198 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:27:53,622 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:27:53,622 - database - INFO - Initializing database connection...
+2024-11-30 03:27:54,744 - database - INFO - Database connection test successful
+2024-11-30 03:27:55,133 - database - INFO - Database tables created successfully
+2024-11-30 03:27:55,214 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:27:55,214 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:27:55,341 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:27:55,383 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:27:55,384 - werkzeug - INFO -  * Debugger PIN: 772-399-319
+2024-11-30 03:28:42,050 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:28:42,050 - database - INFO - Initializing database connection...
+2024-11-30 03:28:43,178 - database - INFO - Database connection test successful
+2024-11-30 03:28:43,571 - database - INFO - Database tables created successfully
+2024-11-30 03:28:43,654 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:28:43,654 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:28:43,781 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:28:43,842 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:28:43,842 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:28:43,843 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:28:44,195 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:28:44,195 - database - INFO - Initializing database connection...
+2024-11-30 03:28:45,328 - database - INFO - Database connection test successful
+2024-11-30 03:28:45,719 - database - INFO - Database tables created successfully
+2024-11-30 03:28:45,801 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:28:45,802 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:28:45,930 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:28:45,967 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:28:45,969 - werkzeug - INFO -  * Debugger PIN: 876-035-730
+2024-11-30 03:30:40,581 - werkzeug - INFO -  * Detected change in '/home/runner/FollowMyLead20/app.py', reloading
+2024-11-30 03:30:41,231 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:30:41,231 - database - INFO - Initializing database connection...
+2024-11-30 03:30:42,378 - database - INFO - Database connection test successful
+2024-11-30 03:30:42,778 - database - INFO - Database tables created successfully
+2024-11-30 03:30:42,859 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:30:42,860 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:30:42,988 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:30:43,031 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.9:80
+2024-11-30 03:30:43,031 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:30:43,032 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:30:43,366 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:30:43,366 - database - INFO - Initializing database connection...
+2024-11-30 03:30:44,491 - database - INFO - Database connection test successful
+2024-11-30 03:30:44,886 - database - INFO - Database tables created successfully
+2024-11-30 03:30:44,972 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:30:44,973 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:30:45,101 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:30:45,137 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:30:45,138 - werkzeug - INFO -  * Debugger PIN: 128-728-364
+2024-11-30 03:31:23,414 - werkzeug - INFO -  * Detected change in '/home/runner/FollowMyLead20/app.py', reloading
+2024-11-30 03:31:23,493 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:31:23,844 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:31:23,844 - database - INFO - Initializing database connection...
+2024-11-30 03:31:24,975 - database - INFO - Database connection test successful
+2024-11-30 03:31:25,389 - database - INFO - Database tables created successfully
+2024-11-30 03:31:25,474 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:31:25,474 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:31:25,604 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:31:25,647 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:31:25,650 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:31:25,650 - database - INFO - Initializing database connection...
+2024-11-30 03:31:25,650 - werkzeug - INFO -  * Debugger PIN: 955-849-671
+2024-11-30 03:31:26,793 - database - INFO - Database connection test successful
+2024-11-30 03:31:27,187 - database - INFO - Database tables created successfully
+2024-11-30 03:31:27,269 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:31:27,270 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:31:27,399 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:31:27,441 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:31:27,441 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:31:27,442 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:31:27,793 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:31:27,794 - database - INFO - Initializing database connection...
+2024-11-30 03:31:28,917 - database - INFO - Database connection test successful
+2024-11-30 03:31:29,316 - database - INFO - Database tables created successfully
+2024-11-30 03:31:29,400 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:31:29,402 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:31:29,529 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:31:29,579 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:31:29,581 - werkzeug - INFO -  * Debugger PIN: 123-181-693
+2024-11-30 03:32:09,909 - werkzeug - INFO -  * Detected change in '/home/runner/FollowMyLead20/app.py', reloading
+2024-11-30 03:32:09,980 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:32:10,117 - werkzeug - INFO -  * Detected change in '/home/runner/FollowMyLead20/app.py', reloading
+2024-11-30 03:32:10,190 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:32:10,384 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:32:10,385 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:32:10,387 - database - INFO - Initializing database connection...
+2024-11-30 03:32:10,592 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:32:10,592 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:32:10,592 - database - INFO - Initializing database connection...
+2024-11-30 03:32:11,523 - database - INFO - Database connection test successful
+2024-11-30 03:32:11,728 - database - INFO - Database connection test successful
+2024-11-30 03:32:11,915 - database - INFO - Database tables created successfully
+2024-11-30 03:32:11,998 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:32:11,998 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:32:12,127 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:32:12,128 - __main__ - ERROR - Database initialization failed: name 'text' is not defined
+Traceback (most recent call last):
+  File "/home/runner/FollowMyLead20/app.py", line 85, in create_app
+    db.session.execute(text('SELECT 1'))
+                       ^^^^
+NameError: name 'text' is not defined
+2024-11-30 03:32:12,131 - __main__ - ERROR - Please check database configuration and connectivity
+2024-11-30 03:32:12,132 - database - INFO - Database tables created successfully
+2024-11-30 03:32:12,215 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:32:12,215 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:32:12,230 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:32:12,230 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:32:12,230 - database - INFO - Initializing database connection...
+2024-11-30 03:32:12,344 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:32:12,345 - __main__ - ERROR - Database initialization failed: name 'text' is not defined
+Traceback (most recent call last):
+  File "/home/runner/FollowMyLead20/app.py", line 85, in create_app
+    db.session.execute(text('SELECT 1'))
+                       ^^^^
+NameError: name 'text' is not defined
+2024-11-30 03:32:12,345 - __main__ - ERROR - Please check database configuration and connectivity
+2024-11-30 03:32:13,371 - database - INFO - Database connection test successful
+2024-11-30 03:32:13,762 - database - INFO - Database tables created successfully
+2024-11-30 03:32:13,843 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:32:13,844 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:32:13,972 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:32:13,973 - __main__ - ERROR - Database initialization failed: name 'text' is not defined
+Traceback (most recent call last):
+  File "/home/runner/FollowMyLead20/app.py", line 85, in create_app
+    db.session.execute(text('SELECT 1'))
+                       ^^^^
+NameError: name 'text' is not defined
+2024-11-30 03:32:13,976 - __main__ - ERROR - Please check database configuration and connectivity
+2024-11-30 03:32:28,346 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:32:28,347 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:32:28,347 - database - INFO - Initializing database connection...
+2024-11-30 03:32:29,478 - database - INFO - Database connection test successful
+2024-11-30 03:32:29,869 - database - INFO - Database tables created successfully
+2024-11-30 03:32:29,952 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:32:29,952 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:32:30,081 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:32:30,272 - __main__ - INFO - Database connection test successful
+2024-11-30 03:32:30,380 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:32:30,381 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:32:30,382 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:32:30,722 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:32:30,722 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:32:30,722 - database - INFO - Initializing database connection...
+2024-11-30 03:32:31,852 - database - INFO - Database connection test successful
+2024-11-30 03:32:32,246 - database - INFO - Database tables created successfully
+2024-11-30 03:32:32,329 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:32:32,329 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:32:32,458 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:32:32,651 - __main__ - INFO - Database connection test successful
+2024-11-30 03:32:32,758 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:32:32,760 - werkzeug - INFO -  * Debugger PIN: 342-193-218
+2024-11-30 03:36:39,590 - werkzeug - INFO -  * Detected change in '/home/runner/FollowMyLead20/app.py', reloading
+2024-11-30 03:36:39,664 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:36:40,059 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:36:40,060 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:36:40,060 - database - INFO - Initializing database connection...
+2024-11-30 03:36:40,906 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:36:40,906 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:36:40,906 - database - INFO - Initializing database connection...
+2024-11-30 03:36:42,068 - database - INFO - Database connection test successful
+2024-11-30 03:36:42,488 - database - INFO - Database tables created successfully
+2024-11-30 03:36:42,576 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:36:42,577 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:36:42,704 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:36:42,895 - __main__ - INFO - Database connection test successful
+2024-11-30 03:36:43,001 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:36:43,001 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:36:43,001 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:36:43,361 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:36:43,362 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:36:43,362 - database - INFO - Initializing database connection...
+2024-11-30 03:36:44,511 - database - INFO - Database connection test successful
+2024-11-30 03:36:44,912 - database - INFO - Database tables created successfully
+2024-11-30 03:36:44,994 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:36:44,994 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:36:45,123 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:36:45,315 - __main__ - INFO - Database connection test successful
+2024-11-30 03:36:45,414 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:36:45,416 - werkzeug - INFO -  * Debugger PIN: 374-037-916
+2024-11-30 03:37:23,663 - werkzeug - INFO -  * Detected change in '/home/runner/FollowMyLead20/app.py', reloading
+2024-11-30 03:37:23,737 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:37:24,107 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:37:24,107 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:37:24,107 - database - INFO - Initializing database connection...
+2024-11-30 03:37:25,255 - database - INFO - Database connection test successful
+2024-11-30 03:37:25,668 - database - INFO - Database tables created successfully
+2024-11-30 03:37:25,749 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:37:25,751 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:37:25,879 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:37:26,075 - __main__ - INFO - Database connection test successful
+2024-11-30 03:37:26,088 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:37:26,088 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:37:26,088 - database - INFO - Initializing database connection...
+2024-11-30 03:37:26,178 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:37:26,182 - werkzeug - INFO -  * Debugger PIN: 134-675-301
+2024-11-30 03:37:27,247 - database - INFO - Database connection test successful
+2024-11-30 03:37:27,640 - database - INFO - Database tables created successfully
+2024-11-30 03:37:27,722 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:37:27,722 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:37:27,851 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:37:28,043 - __main__ - INFO - Database connection test successful
+2024-11-30 03:37:45,591 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:37:45,591 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:37:45,591 - database - INFO - Initializing database connection...
+2024-11-30 03:37:46,723 - database - INFO - Database connection test successful
+2024-11-30 03:37:47,114 - database - INFO - Database tables created successfully
+2024-11-30 03:37:47,196 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:37:47,197 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:37:47,325 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:37:47,516 - __main__ - INFO - Database connection test successful
+2024-11-30 03:38:18,868 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:38:18,876 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:38:18,882 - database - INFO - Initializing database connection...
+2024-11-30 03:38:20,039 - database - INFO - Database connection test successful
+2024-11-30 03:38:20,445 - database - INFO - Database tables created successfully
+2024-11-30 03:38:20,529 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:38:20,533 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:38:20,667 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:38:20,866 - __main__ - INFO - Database connection test successful
+2024-11-30 03:38:21,769 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:38:21,773 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:38:21,774 - database - INFO - Initializing database connection...
+2024-11-30 03:38:22,930 - database - INFO - Database connection test successful
+2024-11-30 03:38:23,323 - database - INFO - Database tables created successfully
+2024-11-30 03:38:23,409 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:38:23,410 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:38:23,542 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:38:23,739 - __main__ - INFO - Database connection test successful
+2024-11-30 03:38:24,739 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:38:24,739 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:38:24,739 - database - INFO - Initializing database connection...
+2024-11-30 03:38:25,892 - database - INFO - Database connection test successful
+2024-11-30 03:38:26,283 - database - INFO - Database tables created successfully
+2024-11-30 03:38:26,365 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:38:26,365 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:38:26,495 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:38:26,690 - __main__ - INFO - Database connection test successful
+2024-11-30 03:38:26,805 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.9:5000
+2024-11-30 03:38:26,806 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:38:26,809 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:38:27,162 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:38:27,162 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:38:27,162 - database - INFO - Initializing database connection...
+2024-11-30 03:38:28,297 - database - INFO - Database connection test successful
+2024-11-30 03:38:28,695 - database - INFO - Database tables created successfully
+2024-11-30 03:38:28,780 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:38:28,780 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:38:28,911 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:38:29,104 - __main__ - INFO - Database connection test successful
+2024-11-30 03:38:29,207 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:38:29,209 - werkzeug - INFO -  * Debugger PIN: 103-703-736
+2024-11-30 03:38:55,130 - werkzeug - INFO -  * Detected change in '/home/runner/FollowMyLead20/app.py', reloading
+2024-11-30 03:38:55,227 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:38:55,448 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:38:55,450 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:38:55,451 - database - INFO - Initializing database connection...
+2024-11-30 03:38:55,745 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:38:55,745 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:38:55,746 - database - INFO - Initializing database connection...
+2024-11-30 03:38:56,596 - database - INFO - Database connection test successful
+2024-11-30 03:38:56,910 - database - INFO - Database connection test successful
+2024-11-30 03:38:56,986 - database - INFO - Database tables created successfully
+2024-11-30 03:38:57,068 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:38:57,069 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:38:57,197 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:38:57,296 - database - INFO - Database tables created successfully
+2024-11-30 03:38:57,378 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:38:57,379 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:38:57,387 - __main__ - INFO - Database connection test successful
+2024-11-30 03:38:57,496 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.31.196.9:5001
+2024-11-30 03:38:57,496 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:38:57,497 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:38:57,509 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:38:57,699 - __main__ - INFO - Database connection test successful
+2024-11-30 03:38:57,797 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:38:57,798 - werkzeug - INFO -  * Debugger PIN: 299-013-721
+2024-11-30 03:38:57,852 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:38:57,852 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:38:57,853 - database - INFO - Initializing database connection...
+2024-11-30 03:38:58,984 - database - INFO - Database connection test successful
+2024-11-30 03:38:59,382 - database - INFO - Database tables created successfully
+2024-11-30 03:38:59,465 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:38:59,466 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:38:59,594 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:38:59,790 - __main__ - INFO - Database connection test successful
+2024-11-30 03:38:59,898 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:38:59,901 - werkzeug - INFO -  * Debugger PIN: 598-438-070
+2024-11-30 03:39:55,927 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:39:55,928 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:39:55,928 - database - INFO - Initializing database connection...
+2024-11-30 03:39:57,067 - database - INFO - Database connection test successful
+2024-11-30 03:39:57,456 - database - INFO - Database tables created successfully
+2024-11-30 03:39:57,538 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:39:57,538 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:39:57,668 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:39:57,859 - __main__ - INFO - Database connection test successful
+2024-11-30 03:39:57,966 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.31.196.9:5001
+2024-11-30 03:39:57,966 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-30 03:39:57,967 - werkzeug - INFO -  * Restarting with stat
+2024-11-30 03:39:58,349 - __main__ - INFO - Starting database initialization...
+2024-11-30 03:39:58,350 - __main__ - INFO - Database URL format: ep-frosty-sky-a4shi2fp.us-east-1.aws.neon.tech/neondb?sslmode=require
+2024-11-30 03:39:58,350 - database - INFO - Initializing database connection...
+2024-11-30 03:39:59,499 - database - INFO - Database connection test successful
+2024-11-30 03:39:59,889 - database - INFO - Database tables created successfully
+2024-11-30 03:39:59,973 - database - INFO - Table leads exists with columns: ['user_id', 'quality_score', 'status', 'name', 'created_at', 'email', 'id', 'company']
+2024-11-30 03:39:59,973 - database - INFO - Table users exists with columns: ['created_at', 'password_hash', 'id', 'email', 'username']
+2024-11-30 03:40:00,103 - __main__ - INFO - Database initialized successfully
+2024-11-30 03:40:00,295 - __main__ - INFO - Database connection test successful
+2024-11-30 03:40:00,393 - werkzeug - WARNING -  * Debugger is active!
+2024-11-30 03:40:00,396 - werkzeug - INFO -  * Debugger PIN: 152-473-883
