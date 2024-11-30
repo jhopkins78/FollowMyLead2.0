@@ -2,16 +2,23 @@ import os
 import sys
 import logging
 import datetime
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_login import LoginManager
 from database import db, init_db
 from sqlalchemy import text
+from routes import register_routes
+from error_handlers import register_error_handlers
+import json
+
+# Load environment variables
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(sys.stdout),
@@ -19,6 +26,12 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
 
 def create_app():
     app = Flask(__name__)
@@ -34,61 +47,88 @@ def create_app():
         app.logger.debug('Response Status: %s', response.status)
         return response
 
+    # Error Handlers
+    @app.errorhandler(400)
+    def bad_request_error(error):
+        return jsonify({"error": "Bad request"}), 400
+
+    @app.errorhandler(401)
+    def unauthorized_error(error):
+        return jsonify({"error": "Unauthorized access"}), 401
+
+    @app.errorhandler(403)
+    def forbidden_error(error):
+        return jsonify({"error": "Forbidden"}), 403
+
+    @app.errorhandler(404)
+    def not_found_error(error):
+        return jsonify({"error": "Resource not found"}), 404
+
+    @app.errorhandler(422)
+    def unprocessable_entity_error(error):
+        return jsonify({"error": "Validation error"}), 422
+
+    @app.errorhandler(500)
+    def internal_server_error(error):
+        app.logger.error(f'Server Error: {str(error)}')
+        return jsonify({"error": "Internal server error"}), 500
+
+    # Request logging
+    @app.before_request
+    def log_request():
+        app.logger.debug(f"Request Headers: {dict(request.headers)}")
+        if request.is_json:
+            app.logger.debug(f"Request JSON: {request.get_json()}")
+        elif request.form:
+            app.logger.debug(f"Request Form: {dict(request.form)}")
+        elif request.files:
+            app.logger.debug(f"Request Files: {dict(request.files)}")
+
+    @app.after_request
+    def log_response(response):
+        app.logger.debug(f"Response Status: {response.status}")
+        app.logger.debug(f"Response Headers: {dict(response.headers)}")
+        return response
+
     app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
     # Configure static folder based on environment
     if os.environ.get('FLASK_ENV') == 'development':
-        app.static_folder = 'static'
+        app.static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
     else:
-        app.static_folder = 'static/dist'
+        app.static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'dist')
 
-    # Configure CORS with more specific settings
-    CORS(app, resources={
-        r"/api/*": {
-            "origins": ["http://localhost:3000", "http://localhost:5001"],
-            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-            "allow_headers": ["Content-Type", "Authorization"]
+    # Ensure static folder exists
+    os.makedirs(app.static_folder, exist_ok=True)
+
+    # Enable CORS
+    CORS(app)
+
+    # Load configuration
+    app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY') or os.urandom(24)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+        'pool_pre_ping': True,
+        'pool_recycle': 300,
+        'connect_args': {
+            'sslmode': 'require'
         }
-    })
+    }
     
-    # Configure logging
-    if app.debug:
-        logging.getLogger('werkzeug').setLevel(logging.INFO)
-        file_handler = logging.FileHandler('flask_app.log')
-        file_handler.setLevel(logging.DEBUG)
-        file_handler.setFormatter(logging.Formatter(
-            '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
-        ))
-        app.logger.addHandler(file_handler)
-        app.logger.setLevel(logging.DEBUG)
-        app.logger.info('Flask app starting in debug mode')
+    logger.info("Using SECRET_KEY: %s", "from env" if os.environ.get('FLASK_SECRET_KEY') else "generated")
 
-    # Configure app
-    app.config.update(
-        SECRET_KEY=os.environ.get("FLASK_SECRET_KEY", os.urandom(24).hex()),
-        SQLALCHEMY_DATABASE_URI=os.environ.get("DATABASE_URL"),
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        SQLALCHEMY_ENGINE_OPTIONS={
-            "pool_pre_ping": True,
-            "pool_recycle": 300,
-        }
-    )
+    # Set up custom JSON encoder for datetime objects
+    app.json_encoder = lambda obj: json.dumps(obj, default=json_serial)
+    
+    # Initialize database
+    logger.info("Starting database initialization...")
+    logger.info("Database URL format: %s", os.environ.get('DATABASE_URL', '').split('@')[-1])
+    init_db(app)
 
-    try:
-        # Initialize database with detailed logging
-        logger.info("Starting database initialization...")
-        logger.info(f"Database URL format: {app.config['SQLALCHEMY_DATABASE_URI'].split('@')[1] if app.config['SQLALCHEMY_DATABASE_URI'] else 'Not set'}")
-        init_db(app)
-        logger.info("Database initialized successfully")
-        
-        # Verify database connection
-        with app.app_context():
-            db.session.execute(text('SELECT 1'))
-            logger.info("Database connection test successful")
-    except Exception as e:
-        logger.error(f"Database initialization failed: {str(e)}", exc_info=True)
-        logger.error("Please check database configuration and connectivity")
-        raise
+    # Register routes and error handlers
+    register_routes(app)
+    register_error_handlers(app)
 
     # Initialize LoginManager
     login_manager = LoginManager()
@@ -101,62 +141,44 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-    # Register routes
-    from routes import register_routes
-    register_routes(app)
-
-    # Error handlers
-    @app.errorhandler(404)
-    def not_found_error(error):
-        if request.path.startswith('/api/'):
-            return jsonify({"error": "Resource not found"}), 404
-        return send_from_directory(app.static_folder, 'index.html')
-
-    @app.errorhandler(500)
-    def internal_error(error):
-        logger.error(f'Server Error: {error}')
-        return jsonify({"error": "Internal server error"}), 500
-
-    @app.errorhandler(401)
-    def unauthorized_error(error):
-        return jsonify({"error": "Unauthorized"}), 401
-
-    @app.errorhandler(403)
-    def forbidden_error(error):
-        return jsonify({"error": "Forbidden"}), 403
-
-    # Health check endpoint
-    @app.route('/health')
-    def health_check():
-        return jsonify({
-            "status": "healthy",
-            "timestamp": datetime.datetime.utcnow().isoformat(),
-            "database": "connected"
-        })
-
     # Serve static files and handle React routing
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
     def serve(path):
+        # Don't handle API routes here
         if path.startswith('api/'):
             return not_found_error(None)
 
+        # Check if file exists in static folder
         if path and os.path.exists(os.path.join(app.static_folder, path)):
             return send_from_directory(app.static_folder, path)
 
         # Handle different content types
         if path.endswith('.js'):
-            return send_from_directory(app.static_folder, 'js/bundle.js', mimetype='application/javascript')
+            js_path = os.path.join('js', 'bundle.js')
+            if os.path.exists(os.path.join(app.static_folder, js_path)):
+                return send_from_directory(app.static_folder, js_path, mimetype='application/javascript')
         elif path.endswith('.css'):
-            return send_from_directory(app.static_folder, 'assets/main.css', mimetype='text/css')
+            css_path = os.path.join('assets', 'main.css')
+            if os.path.exists(os.path.join(app.static_folder, css_path)):
+                return send_from_directory(app.static_folder, css_path, mimetype='text/css')
         elif path.endswith(('.png', '.jpg', '.jpeg', '.gif', '.svg')):
-            return send_from_directory(app.static_folder, path, mimetype=f'image/{path.split(".")[-1]}')
+            if os.path.exists(os.path.join(app.static_folder, path)):
+                return send_from_directory(app.static_folder, path, mimetype=f'image/{path.split(".")[-1]}')
         
-        # Default to serving index.html for all other routes (SPA routing)
-        return send_from_directory(app.static_folder, 'index.html')
+        # Default to serving index.html for all other non-API routes
+        if not path.startswith('api/'):
+            index_path = os.path.join(app.static_folder, 'index.html')
+            if os.path.exists(index_path):
+                return send_from_directory(app.static_folder, 'index.html')
+            else:
+                app.logger.error(f"index.html not found in {app.static_folder}")
+                return jsonify({"error": "Frontend not built"}), 500
+        
+        return not_found_error(None)
 
     return app
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    app.run(host="0.0.0.0", port=5002, debug=True)
