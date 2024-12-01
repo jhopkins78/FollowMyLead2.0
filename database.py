@@ -20,7 +20,12 @@ def init_db(app):
             db.session.execute(text('SELECT 1'))
             logger.info("Database connection test successful")
             
-            # Create tables if they don't exist
+            # In development mode, drop all tables and recreate them
+            if app.debug:
+                logger.info("Development mode detected - dropping and recreating all tables")
+                db.drop_all()
+            
+            # Create tables
             db.create_all()
             logger.info("Database tables created successfully")
             

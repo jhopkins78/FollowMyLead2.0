@@ -12,6 +12,8 @@ from sqlalchemy import text
 from routes import register_routes
 from error_handlers import register_error_handlers
 import json
+from config import Config
+import watchtower
 
 # Load environment variables
 load_dotenv()
@@ -35,6 +37,10 @@ def json_serial(obj):
 
 def create_app():
     app = Flask(__name__)
+    
+    # Load configuration
+    config = Config()
+    app.config.update(config.load_config())
     
     # Add request logging middleware
     @app.before_request
@@ -101,30 +107,38 @@ def create_app():
     # Ensure static folder exists
     os.makedirs(app.static_folder, exist_ok=True)
 
-    # Enable CORS
+    # Initialize CORS
     CORS(app)
 
-    # Load configuration
-    app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY') or os.urandom(24)
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-        'pool_pre_ping': True,
-        'pool_recycle': 300,
-        'connect_args': {
-            'sslmode': 'require'
-        }
-    }
-    
-    logger.info("Using SECRET_KEY: %s", "from env" if os.environ.get('FLASK_SECRET_KEY') else "generated")
-
-    # Set up custom JSON encoder for datetime objects
-    app.json_encoder = lambda obj: json.dumps(obj, default=json_serial)
-    
     # Initialize database
-    logger.info("Starting database initialization...")
-    logger.info("Database URL format: %s", os.environ.get('DATABASE_URL', '').split('@')[-1])
-    init_db(app)
+    db.init_app(app)
+    
+    with app.app_context():
+        db.create_all()  # Create tables if they don't exist
+
+    # Configure logging for production
+    if app.config['ENV'] == 'production':
+        logging.basicConfig(level=logging.INFO)
+        handler = watchtower.CloudWatchLogHandler(
+            log_group='FollowMyLead20',
+            stream_name=datetime.datetime.now().strftime('%Y-%m-%d'),
+            create_log_group=True
+        )
+        app.logger.addHandler(handler)
+        logging.getLogger('werkzeug').addHandler(handler)
+
+    # Health check endpoint
+    @app.route('/health')
+    def health_check():
+        """Health check endpoint for AWS Load Balancer"""
+        try:
+            # Test database connection
+            with db.engine.connect() as connection:
+                connection.execute('SELECT 1')
+            return jsonify({'status': 'healthy'}), 200
+        except Exception as e:
+            app.logger.error(f"Health check failed: {str(e)}")
+            return jsonify({'status': 'unhealthy', 'error': str(e)}), 500
 
     # Register routes and error handlers
     register_routes(app)
@@ -177,8 +191,12 @@ def create_app():
         
         return not_found_error(None)
 
+    # Set up custom JSON encoder for datetime objects
+    app.json_encoder = lambda obj: json.dumps(obj, default=json_serial)
+    
     return app
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host="0.0.0.0", port=5002, debug=True)
+    port = int(os.environ.get('PORT', 5002))
+    app.run(host='0.0.0.0', port=port)
