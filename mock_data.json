@@ -1,5 +1,92 @@
 [
-    {"name": "John Doe", "email": "john@example.com", "company": "Example Corp", "score": 0.85},
-    {"name": "Jane Smith", "email": "jane@example.com", "company": "Tech Solutions", "score": 0.72},
-    {"name": "Alice Johnson", "email": "alice@example.com", "company": "Innovate Ltd", "score": 0.95}
+    {
+        "name": "John Doe",
+        "email": "john.doe@techcorp.com",
+        "company": "TechCorp Solutions",
+        "score": 0.85,
+        "status": "new",
+        "industry": "Technology",
+        "position": "CTO"
+    },
+    {
+        "name": "Sarah Chen",
+        "email": "schen@innovatesys.io",
+        "company": "Innovate Systems",
+        "score": 0.92,
+        "status": "contacted",
+        "industry": "Software",
+        "position": "Director of Engineering"
+    },
+    {
+        "name": "Michael Rodriguez",
+        "email": "mrodriguez@cloudscape.net",
+        "company": "CloudScape Technologies",
+        "score": 0.78,
+        "status": "new",
+        "industry": "Cloud Computing",
+        "position": "VP of Operations"
+    },
+    {
+        "name": "Emma Thompson",
+        "email": "emma@datadrive.ai",
+        "company": "DataDrive AI",
+        "score": 0.95,
+        "status": "qualified",
+        "industry": "Artificial Intelligence",
+        "position": "Chief Data Officer"
+    },
+    {
+        "name": "James Wilson",
+        "email": "jwilson@securetech.com",
+        "company": "SecureTech Solutions",
+        "score": 0.88,
+        "status": "new",
+        "industry": "Cybersecurity",
+        "position": "CISO"
+    },
+    {
+        "name": "Lisa Park",
+        "email": "lpark@healthtech.med",
+        "company": "HealthTech Innovations",
+        "score": 0.82,
+        "status": "contacted",
+        "industry": "Healthcare Technology",
+        "position": "Head of Product"
+    },
+    {
+        "name": "David Kumar",
+        "email": "dkumar@fintech.co",
+        "company": "FinTech Solutions",
+        "score": 0.75,
+        "status": "new",
+        "industry": "Financial Technology",
+        "position": "CFO"
+    },
+    {
+        "name": "Rachel Green",
+        "email": "rgreen@ecotech.org",
+        "company": "EcoTech Sustainability",
+        "score": 0.87,
+        "status": "qualified",
+        "industry": "Clean Technology",
+        "position": "Sustainability Director"
+    },
+    {
+        "name": "Alex Martinez",
+        "email": "amartinez@edutech.edu",
+        "company": "EduTech Learning",
+        "score": 0.79,
+        "status": "new",
+        "industry": "Education Technology",
+        "position": "CEO"
+    },
+    {
+        "name": "Sophia Lee",
+        "email": "slee@biotech.bio",
+        "company": "BioTech Research",
+        "score": 0.91,
+        "status": "contacted",
+        "industry": "Biotechnology",
+        "position": "Research Director"
+    }
 ]

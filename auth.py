@@ -62,6 +62,18 @@ def token_required(f):
             try:
                 data = jwt.decode(token, secret_key, algorithms=['HS256'])
                 logger.info(f'Decoded token data: {data}')
+                
+                # Check token expiration
+                exp = data.get('exp')
+                if not exp:
+                    logger.warning('Token has no expiration')
+                    return jsonify({'error': 'Invalid token'}), 401
+                
+                now = datetime.datetime.utcnow().timestamp()
+                if exp < now:
+                    logger.warning('Token has expired')
+                    return jsonify({'error': 'Token has expired'}), 401
+                
             except jwt.ExpiredSignatureError:
                 logger.warning('Token has expired')
                 return jsonify({'error': 'Token has expired'}), 401
