@@ -1,0 +1,39 @@
+{
+    "OptionSettings": [
+        {
+            "Namespace": "aws:autoscaling:asg",
+            "OptionName": "MinSize",
+            "Value": "1"
+        },
+        {
+            "Namespace": "aws:autoscaling:asg",
+            "OptionName": "MaxSize",
+            "Value": "2"
+        },
+        {
+            "Namespace": "aws:ec2:instances",
+            "OptionName": "InstanceTypes",
+            "Value": "t2.micro"
+        },
+        {
+            "Namespace": "aws:ec2:vpc",
+            "OptionName": "VPCId",
+            "Value": "vpc-0a171bebb02089e1e"
+        },
+        {
+            "Namespace": "aws:ec2:vpc",
+            "OptionName": "Subnets",
+            "Value": "subnet-0fc20084edf2ce1c5"
+        },
+        {
+            "Namespace": "aws:ec2:vpc",
+            "OptionName": "AssociatePublicIpAddress",
+            "Value": "true"
+        },
+        {
+            "Namespace": "aws:autoscaling:launchconfiguration",
+            "OptionName": "IamInstanceProfile",
+            "Value": "aws-elasticbeanstalk-ec2-role"
+        }
+    ]
+}

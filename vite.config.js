@@ -3,11 +3,11 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  root: './static',
+  root: '.',
   base: '/',
   build: {
-    outDir: '../static/dist',
-    assetsDir: '',
+    outDir: 'dist',
+    assetsDir: 'assets',
     manifest: true,
     rollupOptions: {
       input: './static/js/main.jsx',
