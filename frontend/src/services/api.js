@@ -135,6 +135,31 @@ export const updateLeadStatus = async (leadId, status) => {
   }
 };
 
+export const uploadLeads = async (file) => {
+  try {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch(`${API_BASE_URL}/leads/upload`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: formData,
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to upload leads');
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error('Upload leads error:', error);
+    throw error;
+  }
+};
+
 export const deleteLead = async (leadId) => {
   try {
     const token = localStorage.getItem('token');
