@@ -12,16 +12,28 @@ log_level = os.environ.get('LOG_LEVEL', 'INFO')
 logging.basicConfig(level=log_level)
 logger = logging.getLogger(__name__)
 
+# Verify required environment variables
+required_env_vars = ['DATABASE_URL', 'JWT_SECRET_KEY']
+missing_vars = [var for var in required_env_vars if not os.environ.get(var)]
+if missing_vars:
+    error_msg = f"Missing required environment variables: {', '.join(missing_vars)}"
+    logger.error(error_msg)
+    raise ValueError(error_msg)
+
 def register(event, context):
     logger.info("Starting registration process")
     logger.debug(f"Event: {json.dumps(event)}")
+    session = None
     
     try:
         # Parse request body
-        body = event['body']
+        if not event.get('body'):
+            raise ValueError("Request body is missing")
+            
+        body = json.loads(event['body']) if isinstance(event['body'], str) else event['body']
         email = body.get('email')
         password = body.get('password')
-        username = body.get('username')  # updated to use 'username' instead of 'name'
+        username = body.get('username')
         
         logger.debug(f"Registration attempt for email: {email}, username: {username}")
         
@@ -33,7 +45,7 @@ def register(event, context):
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Credentials': True,
                 },
-                'body': json.dumps({'error': 'Email, password and username are required'})
+                'body': json.dumps({'message': 'Email, password and username are required'})
             }
         
         try:
@@ -52,7 +64,7 @@ def register(event, context):
                         'Access-Control-Allow-Origin': '*',
                         'Access-Control-Allow-Credentials': True,
                     },
-                    'body': json.dumps({'error': 'User already exists'})
+                    'body': json.dumps({'message': 'User already exists'})
                 }
             
             # Create new user
@@ -76,11 +88,39 @@ def register(event, context):
             }
             
         except Exception as db_error:
+            if session:
+                session.rollback()
             logger.error(f"Database error: {str(db_error)}")
             logger.error(traceback.format_exc())
-            session.rollback()
-            raise
+            return {
+                'statusCode': 500,
+                'headers': {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Credentials': True,
+                },
+                'body': json.dumps({'message': 'Database error occurred', 'error': str(db_error)})
+            }
             
+    except ValueError as ve:
+        logger.error(f"Validation error: {str(ve)}")
+        return {
+            'statusCode': 400,
+            'headers': {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': True,
+            },
+            'body': json.dumps({'message': str(ve)})
+        }
+    except json.JSONDecodeError as je:
+        logger.error(f"JSON decode error: {str(je)}")
+        return {
+            'statusCode': 400,
+            'headers': {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Credentials': True,
+            },
+            'body': json.dumps({'message': 'Invalid JSON in request body'})
+        }
     except Exception as e:
         logger.error(f"Error in registration: {str(e)}")
         logger.error(traceback.format_exc())
@@ -90,8 +130,12 @@ def register(event, context):
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Credentials': True,
             },
-            'body': json.dumps({'error': str(e)})
+            'body': json.dumps({'message': 'Internal server error', 'error': str(e)})
         }
+    finally:
+        if session:
+            logger.debug("Closing database session")
+            session.close()
 
 def login(event, context):
     logger.info("Starting login process")
@@ -99,7 +143,7 @@ def login(event, context):
     
     try:
         # Parse request body
-        body = json.loads(event['body'])
+        body = json.loads(event['body']) if isinstance(event['body'], str) else event['body']
         email = body.get('email')
         password = body.get('password')
         
