@@ -200,3 +200,26 @@ export const getLeadDetails = async (leadId) => {
     throw error;
   }
 };
+
+export const addLeadNote = async (leadId, noteData) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}/leads/${leadId}/notes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(noteData),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to add note to lead');
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error('Add lead note error:', error);
+    throw error;
+  }
+};
