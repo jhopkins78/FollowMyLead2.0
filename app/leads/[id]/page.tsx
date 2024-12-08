@@ -2,19 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { getLeadDetails, updateLeadStatus, addLeadNote } from '@/services/api';
-import type { LeadDetails, LeadNote, LeadStatus } from '@/types/leads';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { getLeadDetails, updateLeadStatus, addLeadNote } from '@/frontend/src/services/api';
+import type { LeadDetails, LeadNote, LeadStatus } from '@/frontend/src/types/leads';
+import { Button } from '@/frontend/src/components/ui/button';
+import { Input } from '@/frontend/src/components/ui/input';
+import { Label } from '@/frontend/src/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+} from '@/frontend/src/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/frontend/src/components/ui/card';
 import { format } from 'date-fns';
 
 export default function LeadDetailsPage() {

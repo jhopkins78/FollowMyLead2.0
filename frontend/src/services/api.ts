@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://lh20kdxm6g.execute-api.us-west-1.amazonaws.com/$default';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
 
 const api = axios.create({
-  baseURL: `${API_URL}/FollowMyLead-API`,
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
