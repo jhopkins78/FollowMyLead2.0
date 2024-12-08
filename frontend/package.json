@@ -18,7 +18,8 @@
     "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.53.2",
     "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^7.0.1"
+    "react-router-dom": "^7.0.1",
+    "web-vitals": "^3.5.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
