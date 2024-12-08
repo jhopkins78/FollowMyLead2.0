@@ -6,6 +6,8 @@ import { Register } from './pages/Register';
 import { Dashboard } from './pages/Dashboard';
 import { FileUpload } from './pages/FileUpload';
 import { LeadDetails } from './pages/LeadDetails';
+import { Insights } from './pages/Insights';
+import { Features } from './pages/Features';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
 
@@ -17,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/features" element={<Features />} />
           <Route
             path="/dashboard"
             element={
@@ -34,6 +37,14 @@ function App() {
             }
           />
           <Route path="/leads/:id" element={<ProtectedRoute><LeadDetails /></ProtectedRoute>} />
+          <Route
+            path="/insights"
+            element={
+              <ProtectedRoute>
+                <Insights />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </AuthProvider>
