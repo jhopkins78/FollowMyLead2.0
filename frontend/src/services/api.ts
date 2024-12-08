@@ -73,6 +73,18 @@ export const uploadLeads = async (file: File) => {
   return response.data;
 };
 
+export const uploadFile = async (file: File): Promise<void> => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await api.post('/api/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
+};
+
 // Lead Details
 export const getLeadDetails = async (id: string): Promise<LeadDetails> => {
   const response = await api.get(`/leads/${id}`);
