@@ -4,9 +4,9 @@ import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useRouter } from 'next/navigation'
 import { Upload } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useToast } from '@/components/ui/use-toast'
-import { uploadLeads } from '@/services/api'
+import { Button } from '@/frontend/src/components/ui/button'
+import { useToast } from '@/frontend/src/components/ui/use-toast'
+import { uploadLeads } from '@/frontend/src/services/api'
 
 export default function ProgramFileUpload() {
   const [isUploading, setIsUploading] = useState(false)
