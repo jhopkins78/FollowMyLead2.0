@@ -73,6 +73,40 @@ export const uploadLeads = async (file: File) => {
   return response.data;
 };
 
+// Lead Details
+export const getLeadDetails = async (id: string): Promise<LeadDetails> => {
+  const response = await api.get(`/leads/${id}`);
+  return response.data;
+};
+
+export const updateLeadStatus = async (id: string, status: string): Promise<void> => {
+  const response = await api.put(`/leads/${id}/status`, {
+    status,
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.data;
+};
+
+export const addLeadNote = async (id: string, content: string): Promise<LeadNote> => {
+  const response = await api.post(`/leads/${id}/notes`, {
+    content,
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.data;
+};
+
+// Insights
+export const getInsights = async () => {
+  const response = await axios.get('https://cz0zmv145h.execute-api.us-west-1.amazonaws.com/prod/insights');
+  return response.data;
+};
+
 // Error handler
 api.interceptors.response.use(
   (response) => response,
