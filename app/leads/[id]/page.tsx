@@ -1,229 +1,354 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { getLeadDetails, updateLeadStatus, addLeadNote } from '@/frontend/src/services/api';
-import type { LeadDetails, LeadNote, LeadStatus } from '@/frontend/src/types/leads';
-import { Button } from '@/frontend/src/components/ui/button';
-import { Input } from '@/frontend/src/components/ui/input';
-import { Label } from '@/frontend/src/components/ui/label';
+import { useEffect, useState } from 'react'
+import { useParams, useRouter } from 'next/navigation'
+import { getLeadDetails, updateLeadStatus, addLeadNote } from '@/services/api'
+import { toast } from 'sonner'
+import { useForm } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/frontend/src/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@/frontend/src/components/ui/card';
-import { format } from 'date-fns';
+} from '@/components/ui/select'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { format } from 'date-fns'
+import { Skeleton } from '@/components/ui/skeleton'
+import { AlertCircle } from 'lucide-react'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+
+interface LeadNote {
+  id: string
+  content: string
+  created_at: string
+  created_by: string
+}
+
+interface LeadDetails {
+  id: string
+  name: string
+  email: string
+  phone: string
+  company: string
+  score: number
+  status: 'new' | 'contacted' | 'qualified' | 'converted' | 'lost'
+  created_at: string
+  notes: LeadNote[]
+  last_contact: string | null
+  industry: string
+  location: string
+  source: string
+  estimated_value: number
+}
+
+interface NoteFormData {
+  content: string
+}
 
 export default function LeadDetailsPage() {
-  const params = useParams();
-  const router = useRouter();
-  const [lead, setLead] = useState<LeadDetails | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [newNote, setNewNote] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-
-  const leadStatuses: LeadStatus[] = [
-    'new',
-    'contacted',
-    'qualified',
-    'proposal',
-    'negotiation',
-    'closed',
-    'lost'
-  ];
+  const params = useParams()
+  const router = useRouter()
+  const id = params.id as string
+  const [lead, setLead] = useState<LeadDetails | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [isUpdatingStatus, setIsUpdatingStatus] = useState(false)
+  const [isAddingNote, setIsAddingNote] = useState(false)
+  const { register: noteRegister, handleSubmit: handleNoteSubmit, reset: resetNoteForm } = useForm<NoteFormData>()
 
   useEffect(() => {
-    const fetchLead = async () => {
-      try {
-        const data = await getLeadDetails(params.id as string);
-        setLead(data);
-      } catch (err) {
-        setError('Failed to fetch lead details');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetchLeadDetails()
+  }, [id])
 
-    fetchLead();
-  }, [params.id]);
-
-  const handleStatusChange = async (newStatus: LeadStatus) => {
-    if (!lead) return;
-    
+  const fetchLeadDetails = async () => {
     try {
-      await updateLeadStatus(lead.id, newStatus);
-      setLead({ ...lead, status: newStatus });
+      setIsLoading(true)
+      setError(null)
+      const data = await getLeadDetails(id)
+      setLead(data)
     } catch (err) {
-      console.error('Failed to update status:', err);
-      setError('Failed to update lead status');
+      setError(err instanceof Error ? err.message : 'Failed to fetch lead details')
+      toast.error('Failed to fetch lead details')
+    } finally {
+      setIsLoading(false)
     }
-  };
+  }
 
-  const handleAddNote = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!lead || !newNote.trim() || submitting) return;
-
-    setSubmitting(true);
+  const handleStatusChange = async (newStatus: LeadDetails['status']) => {
+    if (!lead) return
     try {
-      const note = await addLeadNote(lead.id, newNote);
+      setIsUpdatingStatus(true)
+      await updateLeadStatus(id, newStatus)
+      setLead({ ...lead, status: newStatus })
+      toast.success('Status updated successfully')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to update status')
+      // Revert the status in UI
+      setLead({ ...lead })
+    } finally {
+      setIsUpdatingStatus(false)
+    }
+  }
+
+  const onNoteSubmit = async (data: NoteFormData) => {
+    if (!lead) return
+    try {
+      setIsAddingNote(true)
+      const newNote = await addLeadNote(id, data.content)
       setLead({
         ...lead,
-        notes: [...lead.notes, note],
-      });
-      setNewNote('');
+        notes: [newNote, ...lead.notes]
+      })
+      resetNoteForm()
+      toast.success('Note added successfully')
     } catch (err) {
-      console.error('Failed to add note:', err);
-      setError('Failed to add note');
+      toast.error(err instanceof Error ? err.message : 'Failed to add note')
     } finally {
-      setSubmitting(false);
+      setIsAddingNote(false)
     }
-  };
+  }
 
-  if (loading) {
-    return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return 'text-green-600 bg-green-100'
+    if (score >= 60) return 'text-yellow-600 bg-yellow-100'
+    return 'text-red-600 bg-red-100'
+  }
+
+  const getStatusColor = (status: LeadDetails['status']) => {
+    const colors = {
+      new: 'bg-blue-100 text-blue-800',
+      contacted: 'bg-yellow-100 text-yellow-800',
+      qualified: 'bg-green-100 text-green-800',
+      converted: 'bg-purple-100 text-purple-800',
+      lost: 'bg-gray-100 text-gray-800'
+    }
+    return colors[status]
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <p className="text-red-500 mb-4">{error}</p>
-        <Button onClick={() => router.back()}>Go Back</Button>
+      <div className="container mx-auto px-4 py-8">
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+        <Button onClick={() => router.push('/dashboard')} className="mt-4">
+          Return to Dashboard
+        </Button>
       </div>
-    );
+    )
   }
 
-  if (!lead) {
+  if (isLoading || !lead) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <p className="mb-4">Lead not found</p>
-        <Button onClick={() => router.back()}>Go Back</Button>
+      <div className="container mx-auto px-4 py-8">
+        <div className="space-y-6">
+          <div className="flex justify-between">
+            <Skeleton className="h-8 w-1/3" />
+            <Skeleton className="h-10 w-24" />
+          </div>
+          <Card>
+            <CardHeader>
+              <Skeleton className="h-6 w-1/4" />
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                {[...Array(6)].map((_, i) => (
+                  <div key={i} className="sm:col-span-1">
+                    <Skeleton className="h-4 w-1/4 mb-2" />
+                    <Skeleton className="h-6 w-3/4" />
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <Skeleton className="h-6 w-1/4" />
+            </CardHeader>
+            <CardContent>
+              <Skeleton className="h-24 w-full mb-4" />
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="mb-4">
+                  <Skeleton className="h-4 w-1/4 mb-2" />
+                  <Skeleton className="h-16 w-full" />
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    );
+    )
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <Button
-          variant="outline"
-          onClick={() => router.back()}
-          className="mb-4"
-        >
-          ← Back to Leads
-        </Button>
-        <h1 className="text-3xl font-bold">{lead.name}</h1>
-      </div>
+    <div className="min-h-screen bg-gray-100">
+      <div className="container mx-auto px-4 py-8">
+        <div className="md:flex md:items-center md:justify-between mb-6">
+          <div className="min-w-0 flex-1">
+            <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+              {lead.name}
+            </h2>
+            <p className="mt-1 text-sm text-gray-500">{lead.company}</p>
+          </div>
+          <div className="mt-4 flex md:mt-0 md:ml-4">
+            <Button onClick={() => router.push('/dashboard')}>Back to Dashboard</Button>
+          </div>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Lead Information */}
-        <Card className="col-span-2">
+        <Card>
           <CardHeader>
             <CardTitle>Lead Information</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              <div>
-                <Label>Email</Label>
-                <p className="text-gray-700">{lead.email}</p>
+            <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Email</dt>
+                <dd className="mt-1 text-sm text-gray-900">{lead.email}</dd>
               </div>
-              {lead.phone && (
-                <div>
-                  <Label>Phone</Label>
-                  <p className="text-gray-700">{lead.phone}</p>
-                </div>
-              )}
-              {lead.company && (
-                <div>
-                  <Label>Company</Label>
-                  <p className="text-gray-700">{lead.company}</p>
-                </div>
-              )}
-              <div>
-                <Label>Source</Label>
-                <p className="text-gray-700">{lead.source}</p>
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Phone</dt>
+                <dd className="mt-1 text-sm text-gray-900">{lead.phone}</dd>
               </div>
-              <div>
-                <Label>Created</Label>
-                <p className="text-gray-700">
-                  {format(new Date(lead.createdAt), 'PPP')}
-                </p>
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Industry</dt>
+                <dd className="mt-1 text-sm text-gray-900">{lead.industry}</dd>
               </div>
-            </div>
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Location</dt>
+                <dd className="mt-1 text-sm text-gray-900">{lead.location}</dd>
+              </div>
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Source</dt>
+                <dd className="mt-1 text-sm text-gray-900">{lead.source}</dd>
+              </div>
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Status</dt>
+                <dd className="mt-1">
+                  <Select 
+                    value={lead.status} 
+                    onValueChange={handleStatusChange}
+                    disabled={isUpdatingStatus}
+                  >
+                    <SelectTrigger className={`text-sm rounded-full px-3 py-1 font-semibold ${getStatusColor(lead.status)}`}>
+                      <SelectValue>
+                        {lead.status.charAt(0).toUpperCase() + lead.status.slice(1)}
+                      </SelectValue>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {['new', 'contacted', 'qualified', 'converted', 'lost'].map((status) => (
+                        <SelectItem key={status} value={status}>
+                          {status.charAt(0).toUpperCase() + status.slice(1)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </dd>
+              </div>
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Estimated Value</dt>
+                <dd className="mt-1 text-sm text-gray-900">
+                  ${lead.estimated_value.toLocaleString()}
+                </dd>
+              </div>
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Created At</dt>
+                <dd className="mt-1 text-sm text-gray-900">
+                  {format(new Date(lead.created_at), 'MMMM dd, yyyy')}
+                </dd>
+              </div>
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Last Contact</dt>
+                <dd className="mt-1 text-sm text-gray-900">
+                  {lead.last_contact ? format(new Date(lead.last_contact), 'MMMM dd, yyyy') : 'Never'}
+                </dd>
+              </div>
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Lead Score</dt>
+                <dd className="mt-1">
+                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getScoreColor(lead.score)}`}>
+                    {lead.score}
+                  </span>
+                </dd>
+              </div>
+            </dl>
           </CardContent>
         </Card>
 
-        {/* Status */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Status</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Select
-              value={lead.status}
-              onValueChange={(value) => handleStatusChange(value as LeadStatus)}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select status" />
-              </SelectTrigger>
-              <SelectContent>
-                {leadStatuses.map((status) => (
-                  <SelectItem key={status} value={status}>
-                    {status.charAt(0).toUpperCase() + status.slice(1)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </CardContent>
-        </Card>
-
-        {/* Notes Section */}
-        <Card className="col-span-3">
+        <Card className="mt-8">
           <CardHeader>
             <CardTitle>Notes</CardTitle>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleAddNote} className="mb-6">
-              <div className="flex gap-4">
+            <form onSubmit={handleNoteSubmit(onNoteSubmit)} className="mb-6">
+              <div>
+                <Label htmlFor="content" className="sr-only">
+                  Add a note
+                </Label>
                 <Input
-                  value={newNote}
-                  onChange={(e) => setNewNote(e.target.value)}
+                  id="content"
+                  rows={3}
+                  className="shadow-sm block w-full focus:ring-primary-500 focus:border-primary-500 sm:text-sm border border-gray-300 rounded-md"
                   placeholder="Add a note..."
-                  className="flex-1"
+                  {...noteRegister('content', { required: true })}
+                  disabled={isAddingNote}
                 />
-                <Button type="submit" disabled={submitting || !newNote.trim()}>
-                  Add Note
+              </div>
+              <div className="mt-3">
+                <Button type="submit" disabled={isAddingNote}>
+                  {isAddingNote ? 'Adding Note...' : 'Add Note'}
                 </Button>
               </div>
             </form>
 
-            <div className="space-y-4">
-              {lead.notes.map((note: LeadNote) => (
-                <div
-                  key={note.id}
-                  className="p-4 bg-gray-50 rounded-lg"
-                >
-                  <p className="text-gray-700">{note.content}</p>
-                  <div className="mt-2 text-sm text-gray-500">
-                    <span>{format(new Date(note.createdAt), 'PPP')}</span>
-                    <span className="mx-2">•</span>
-                    <span>{note.createdBy}</span>
-                  </div>
-                </div>
-              ))}
-              {lead.notes.length === 0 && (
-                <p className="text-gray-500 text-center py-4">
-                  No notes yet. Add one above.
-                </p>
-              )}
+            <div className="flow-root">
+              <ul role="list" className="-mb-8">
+                {lead.notes.map((note, noteIdx) => (
+                  <li key={note.id}>
+                    <div className="relative pb-8">
+                      {noteIdx !== lead.notes.length - 1 ? (
+                        <span
+                          className="absolute left-5 top-5 -ml-px h-full w-0.5 bg-gray-200"
+                          aria-hidden="true"
+                        />
+                      ) : null}
+                      <div className="relative flex items-start space-x-3">
+                        <div className="relative">
+                          <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center ring-8 ring-white">
+                            <span className="text-sm font-medium text-gray-500">
+                              {note.created_by.charAt(0).toUpperCase()}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div>
+                            <div className="text-sm">
+                              <span className="font-medium text-gray-900">
+                                {note.created_by}
+                              </span>
+                            </div>
+                            <p className="mt-0.5 text-sm text-gray-500">
+                              {format(new Date(note.created_at), 'MMMM dd, yyyy')}
+                            </p>
+                          </div>
+                          <div className="mt-2 text-sm text-gray-700">
+                            <p>{note.content}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           </CardContent>
         </Card>
       </div>
     </div>
-  );
+  )
 }
