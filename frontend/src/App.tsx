@@ -8,6 +8,7 @@ import { FileUpload } from './pages/FileUpload';
 import { LeadDetails } from './pages/LeadDetails';
 import { Insights } from './pages/Insights';
 import { Features } from './pages/Features';
+import { Homepage } from './pages/Homepage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
 
@@ -17,6 +18,7 @@ function App() {
       <AuthProvider>
         <Toaster position="top-right" />
         <Routes>
+          <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/features" element={<Features />} />
@@ -45,7 +47,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </AuthProvider>
     </Router>
