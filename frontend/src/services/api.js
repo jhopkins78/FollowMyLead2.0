@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://your-api-gateway-url.execute-api.region.amazonaws.com/prod';
+const API_BASE_URL = import.meta.env.VITE_LEADS_API_URL || 'https://your-api-gateway-url.execute-api.region.amazonaws.com/prod';
 
 // Auth APIs
 export const login = async (credentials) => {
@@ -56,13 +56,12 @@ export const getLeads = async () => {
     });
     
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Failed to fetch leads');
+      throw new Error('Failed to fetch leads');
     }
     
     return response.json();
   } catch (error) {
-    console.error('Get leads error:', error);
+    console.error('Fetch leads error:', error);
     throw error;
   }
 };
@@ -80,8 +79,7 @@ export const createLead = async (leadData) => {
     });
     
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Failed to create lead');
+      throw new Error('Failed to create lead');
     }
     
     return response.json();
@@ -104,13 +102,35 @@ export const updateLead = async (leadId, leadData) => {
     });
     
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Failed to update lead');
+      throw new Error('Failed to update lead');
     }
     
     return response.json();
   } catch (error) {
     console.error('Update lead error:', error);
+    throw error;
+  }
+};
+
+export const updateLeadStatus = async (leadId, status) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}/leads/${leadId}/status`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ status }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to update lead status');
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error('Update lead status error:', error);
     throw error;
   }
 };
@@ -126,8 +146,7 @@ export const deleteLead = async (leadId) => {
     });
     
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Failed to delete lead');
+      throw new Error('Failed to delete lead');
     }
     
     return response.json();
