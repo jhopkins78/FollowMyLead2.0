@@ -1,0 +1,20 @@
+FROM amazonlinux:2
+
+# Install Python 3.9 and development tools
+RUN yum update -y && \
+    yum groupinstall -y "Development Tools" && \
+    yum install -y \
+    python39 \
+    python39-devel \
+    postgresql-devel
+
+# Create the directory structure for the Lambda layer
+RUN mkdir -p /opt/python/lib/python3.9/site-packages
+
+# Install psycopg2-binary
+RUN python3.9 -m pip install --target /opt/python/lib/python3.9/site-packages psycopg2-binary==2.9.9
+
+# Create the layer archive
+RUN cd /opt && zip -r /psycopg2-layer.zip python/
+
+CMD ["/bin/bash"]

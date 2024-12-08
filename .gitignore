@@ -50,3 +50,32 @@ frontend-app.zip
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+bin/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+
+# Lambda specific
+lambda_functions/**/venv/
+lambda_functions/**/package/
+lambda_functions/**/*.dist-info/
+lambda_layers/**/python/
+response.json

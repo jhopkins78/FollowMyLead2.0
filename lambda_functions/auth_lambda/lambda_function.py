@@ -168,6 +168,8 @@ def lambda_handler(event, context):
     # Get database connection details from environment variables
     jwt_secret = os.environ['JWT_SECRET_KEY']
     
+    print(f"Received event: {event}")  # Debug log
+    
     # Parse the incoming request
     http_method = event['httpMethod']
     path = event['path']
