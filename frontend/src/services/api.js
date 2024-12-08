@@ -180,3 +180,23 @@ export const deleteLead = async (leadId) => {
     throw error;
   }
 };
+
+export const getLeadDetails = async (leadId) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}/leads/${leadId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch lead details');
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error('Fetch lead details error:', error);
+    throw error;
+  }
+};
