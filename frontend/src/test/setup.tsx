@@ -38,5 +38,10 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Add TextEncoder/TextDecoder to global
-global.TextEncoder = TextEncoder;
-global.TextDecoder = TextDecoder;
+if (typeof global.TextEncoder === 'undefined') {
+  global.TextEncoder = TextEncoder as any;
+}
+
+if (typeof global.TextDecoder === 'undefined') {
+  global.TextDecoder = TextDecoder as any;
+}
