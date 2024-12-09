@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { LeadDetails, LeadNote, LeadStatus } from '@/types/leads';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
 
@@ -30,29 +31,20 @@ export const register = async (username: string, email: string, password: string
 };
 
 // Leads
-export const getLeads = async () => {
+export const getLeads = async (): Promise<LeadDetails[]> => {
   const response = await api.get('/leads');
   return response.data;
 };
 
-export const createLead = async (leadData: {
-  name: string;
-  email?: string;
-  phone?: string;
-  status?: string;
-  notes?: string;
-}) => {
+export const createLead = async (leadData: Partial<LeadDetails>): Promise<LeadDetails> => {
   const response = await api.post('/leads', leadData);
   return response.data;
 };
 
-export const updateLead = async (leadId: string, leadData: {
-  name?: string;
-  email?: string;
-  phone?: string;
-  status?: string;
-  notes?: string;
-}) => {
+export const updateLead = async (
+  leadId: string,
+  leadData: Partial<LeadDetails>
+): Promise<LeadDetails> => {
   const response = await api.put(`/leads/${leadId}`, leadData);
   return response.data;
 };
@@ -91,15 +83,8 @@ export const getLeadDetails = async (id: string): Promise<LeadDetails> => {
   return response.data;
 };
 
-export const updateLeadStatus = async (id: string, status: string): Promise<void> => {
-  const response = await api.put(`/leads/${id}/status`, {
-    status,
-  }, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  return response.data;
+export const updateLeadStatus = async (id: string, status: LeadStatus): Promise<void> => {
+  await api.patch(`/leads/${id}/status`, { status });
 };
 
 export const addLeadNote = async (id: string, content: string): Promise<LeadNote> => {
