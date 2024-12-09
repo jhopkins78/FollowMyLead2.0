@@ -1,77 +1,93 @@
-import React, { useEffect, useState } from 'react';
-import { getLeads, updateLeadStatus } from '../services/api';
-import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { ChevronDown, ChevronUp } from 'lucide-react'
+import { getLeads, updateLeadStatus } from '@/services/api'
+import { useToast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button"
 
 interface Lead {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  company: string;
-  score: number;
-  status: 'new' | 'contacted' | 'qualified' | 'converted' | 'lost';
-  created_at: string;
+  id: string
+  name: string
+  email: string
+  phone: string
+  company: string
+  score: number
+  status: 'new' | 'contacted' | 'qualified' | 'converted' | 'lost'
+  created_at: string
 }
 
-export const Dashboard: React.FC = () => {
-  const [leads, setLeads] = useState<Lead[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [sortField, setSortField] = useState<keyof Lead>('score');
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+export default function Dashboard() {
+  const [leads, setLeads] = useState<Lead[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [sortField, setSortField] = useState<keyof Lead>('score')
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
+  const { toast } = useToast()
 
   useEffect(() => {
-    fetchLeads();
-  }, []);
+    fetchLeads()
+  }, [])
 
   const fetchLeads = async () => {
     try {
-      const response = await getLeads();
-      setLeads(response.data);
+      const response = await getLeads()
+      setLeads(response.data)
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to fetch leads');
+      toast({
+        title: "Error",
+        description: error.response?.data?.message || 'Failed to fetch leads',
+        variant: "destructive",
+      })
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   const handleStatusUpdate = async (leadId: string, newStatus: Lead['status']) => {
     try {
-      await updateLeadStatus(leadId, newStatus);
+      await updateLeadStatus(leadId, newStatus)
       setLeads(leads.map(lead => 
         lead.id === leadId ? { ...lead, status: newStatus } : lead
-      ));
-      toast.success('Status updated successfully');
+      ))
+      toast({
+        title: "Success",
+        description: "Status updated successfully",
+      })
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to update status');
+      toast({
+        title: "Error",
+        description: error.response?.data?.message || 'Failed to update status',
+        variant: "destructive",
+      })
     }
-  };
+  }
 
   const sortLeads = (field: keyof Lead) => {
     if (sortField === field) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
     } else {
-      setSortField(field);
-      setSortDirection('desc');
+      setSortField(field)
+      setSortDirection('desc')
     }
-  };
+  }
 
   const sortedLeads = [...leads].sort((a, b) => {
-    const aValue = a[sortField];
-    const bValue = b[sortField];
-    const direction = sortDirection === 'asc' ? 1 : -1;
+    const aValue = a[sortField]
+    const bValue = b[sortField]
+    const direction = sortDirection === 'asc' ? 1 : -1
     
     if (typeof aValue === 'number' && typeof bValue === 'number') {
-      return (aValue - bValue) * direction;
+      return (aValue - bValue) * direction
     }
-    return String(aValue).localeCompare(String(bValue)) * direction;
-  });
+    return String(aValue).localeCompare(String(bValue)) * direction
+  })
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600 bg-green-100';
-    if (score >= 60) return 'text-yellow-600 bg-yellow-100';
-    return 'text-red-600 bg-red-100';
-  };
+    if (score >= 80) return 'text-green-600 bg-green-100'
+    if (score >= 60) return 'text-yellow-600 bg-yellow-100'
+    return 'text-red-600 bg-red-100'
+  }
 
   const getStatusColor = (status: Lead['status']) => {
     const colors = {
@@ -80,16 +96,16 @@ export const Dashboard: React.FC = () => {
       qualified: 'bg-green-100 text-green-800',
       converted: 'bg-purple-100 text-purple-800',
       lost: 'bg-gray-100 text-gray-800'
-    };
-    return colors[status];
-  };
+    }
+    return colors[status]
+  }
 
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
       </div>
-    );
+    )
   }
 
   return (
@@ -97,11 +113,10 @@ export const Dashboard: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Lead Dashboard</h1>
-          <Link
-            to="/upload"
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700"
-          >
-            Upload Leads
+          <Link href="/upload" passHref>
+            <Button>
+              Upload Leads
+            </Button>
           </Link>
         </div>
 
@@ -120,7 +135,7 @@ export const Dashboard: React.FC = () => {
                         {header}
                         {sortField === header.toLowerCase().replace(' ', '_') && (
                           <span className="ml-2">
-                            {sortDirection === 'asc' ? '↑' : '↓'}
+                            {sortDirection === 'asc' ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                           </span>
                         )}
                       </div>
@@ -136,7 +151,7 @@ export const Dashboard: React.FC = () => {
                   <tr key={lead.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <Link 
-                        to={`/leads/${lead.id}`}
+                        href={`/leads/${lead.id}`}
                         className="text-primary-600 hover:text-primary-900"
                       >
                         {lead.name}
@@ -171,7 +186,7 @@ export const Dashboard: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <Link
-                        to={`/leads/${lead.id}`}
+                        href={`/leads/${lead.id}`}
                         className="text-primary-600 hover:text-primary-900"
                       >
                         View Details
@@ -185,5 +200,5 @@ export const Dashboard: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
