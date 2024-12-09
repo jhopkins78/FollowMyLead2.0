@@ -19,24 +19,29 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+interface ApiResponse<T> {
+  data: T;
+  message?: string;
+}
+
 // Authentication
-export const login = async (email: string, password: string) => {
-  const response = await api.post('/auth/login', { email, password });
+export const login = async (data: { email: string; password: string }): Promise<ApiResponse<{ token: string; user: any }>> => {
+  const response = await api.post('/auth/login', data);
   return response.data;
 };
 
-export const register = async (username: string, email: string, password: string) => {
-  const response = await api.post('/auth/register', { username, email, password });
+export const register = async (data: { username: string; email: string; password: string }): Promise<ApiResponse<{ token: string; user: any }>> => {
+  const response = await api.post('/auth/register', data);
   return response.data;
 };
 
 // Leads
-export const getLeads = async (): Promise<LeadDetails[]> => {
+export const getLeads = async (): Promise<ApiResponse<LeadDetails[]>> => {
   const response = await api.get('/leads');
   return response.data;
 };
 
-export const createLead = async (leadData: Partial<LeadDetails>): Promise<LeadDetails> => {
+export const createLead = async (leadData: Partial<LeadDetails>): Promise<ApiResponse<LeadDetails>> => {
   const response = await api.post('/leads', leadData);
   return response.data;
 };
@@ -44,17 +49,17 @@ export const createLead = async (leadData: Partial<LeadDetails>): Promise<LeadDe
 export const updateLead = async (
   leadId: string,
   leadData: Partial<LeadDetails>
-): Promise<LeadDetails> => {
+): Promise<ApiResponse<LeadDetails>> => {
   const response = await api.put(`/leads/${leadId}`, leadData);
   return response.data;
 };
 
-export const deleteLead = async (leadId: string) => {
+export const deleteLead = async (leadId: string): Promise<ApiResponse<void>> => {
   const response = await api.delete(`/leads/${leadId}`);
   return response.data;
 };
 
-export const uploadLeads = async (file: File) => {
+export const uploadLeads = async (file: File): Promise<ApiResponse<void>> => {
   const formData = new FormData();
   formData.append('file', file);
   const response = await api.post('/leads/upload-csv', formData, {
@@ -65,7 +70,7 @@ export const uploadLeads = async (file: File) => {
   return response.data;
 };
 
-export const uploadFile = async (file: File): Promise<void> => {
+export const uploadFile = async (file: File): Promise<ApiResponse<void>> => {
   const formData = new FormData();
   formData.append('file', file);
 
@@ -78,16 +83,17 @@ export const uploadFile = async (file: File): Promise<void> => {
 };
 
 // Lead Details
-export const getLeadDetails = async (id: string): Promise<LeadDetails> => {
+export const getLeadDetails = async (id: string): Promise<ApiResponse<LeadDetails>> => {
   const response = await api.get(`/leads/${id}`);
   return response.data;
 };
 
-export const updateLeadStatus = async (id: string, status: LeadStatus): Promise<void> => {
+export const updateLeadStatus = async (id: string, status: LeadStatus): Promise<ApiResponse<void>> => {
   await api.patch(`/leads/${id}/status`, { status });
+  return { data: undefined };
 };
 
-export const addLeadNote = async (id: string, content: string): Promise<LeadNote> => {
+export const addLeadNote = async (id: string, content: string): Promise<ApiResponse<LeadNote>> => {
   const response = await api.post(`/leads/${id}/notes`, {
     content,
   }, {
@@ -99,7 +105,7 @@ export const addLeadNote = async (id: string, content: string): Promise<LeadNote
 };
 
 // Insights
-export const getInsights = async () => {
+export const getInsights = async (): Promise<ApiResponse<any>> => {
   const response = await axios.get('https://cz0zmv145h.execute-api.us-west-1.amazonaws.com/prod/insights');
   return response.data;
 };
