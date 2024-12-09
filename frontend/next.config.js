@@ -2,7 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // Add any other necessary configuration here
+  distDir: 'dist',
+  // Specify the source directory
+  experimental: {
+    typedRoutes: true,
+  },
+  // Configure path aliases
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': '/frontend/src'
+    }
+    return config
+  }
 }
 
 module.exports = nextConfig
