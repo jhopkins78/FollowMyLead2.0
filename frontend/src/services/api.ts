@@ -20,8 +20,10 @@ api.interceptors.request.use((config) => {
 });
 
 interface ApiResponse<T> {
-  data: T;
-  message?: string;
+  data: {
+    data: T;
+    message?: string;
+  };
 }
 
 // Authentication
@@ -90,7 +92,7 @@ export const getLeadDetails = async (id: string): Promise<ApiResponse<LeadDetail
 
 export const updateLeadStatus = async (id: string, status: LeadStatus): Promise<ApiResponse<void>> => {
   await api.patch(`/leads/${id}/status`, { status });
-  return { data: undefined };
+  return { data: { data: undefined } };
 };
 
 export const addLeadNote = async (id: string, content: string): Promise<ApiResponse<LeadNote>> => {

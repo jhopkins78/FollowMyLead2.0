@@ -52,7 +52,12 @@ const renderDashboard = () => {
 describe('Dashboard Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    (api.getLeads as any).mockResolvedValue({ data: { data: mockLeads } });
+    (api.getLeads as any).mockResolvedValue({
+      data: {
+        leads: mockLeads,
+        message: 'Leads fetched successfully'
+      }
+    });
   });
 
   it('renders loading state initially', () => {

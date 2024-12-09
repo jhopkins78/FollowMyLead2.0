@@ -21,7 +21,11 @@ const Dashboard: React.FC = () => {
   const fetchLeads = async () => {
     try {
       const response = await api.getLeads();
-      setLeads(response.data.data);
+      if (response.data && response.data.leads) {
+        setLeads(response.data.leads);
+      } else {
+        setLeads([]);
+      }
       setLoading(false);
     } catch (error) {
       toast.error('Failed to fetch leads');
