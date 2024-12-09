@@ -5,6 +5,7 @@ export interface LeadDetails {
   phone?: string;
   company?: string;
   industry?: string;
+  location?: string;
   status: LeadStatus;
   source: string;
   notes: LeadNote[];
