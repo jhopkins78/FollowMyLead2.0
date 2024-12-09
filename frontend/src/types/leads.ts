@@ -11,6 +11,7 @@ export interface LeadDetails {
   status: LeadStatus;
   source: string;
   notes: LeadNote[];
+  lastContact?: string;
   createdAt: string;
   updatedAt: string;
 }

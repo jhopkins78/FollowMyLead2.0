@@ -171,13 +171,19 @@ export const LeadDetails: React.FC = () => {
               <div className="sm:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">Created At</dt>
                 <dd className="mt-1 text-sm text-gray-900">
-                  {new Date(lead.created_at).toLocaleDateString()}
+                  {new Date(lead.createdAt).toLocaleDateString()}
+                </dd>
+              </div>
+              <div className="sm:col-span-1">
+                <dt className="text-sm font-medium text-gray-500">Updated At</dt>
+                <dd className="mt-1 text-sm text-gray-900">
+                  {new Date(lead.updatedAt).toLocaleDateString()}
                 </dd>
               </div>
               <div className="sm:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">Last Contact</dt>
                 <dd className="mt-1 text-sm text-gray-900">
-                  {lead.last_contact ? new Date(lead.last_contact).toLocaleDateString() : 'Never'}
+                  {lead.lastContact ? new Date(lead.lastContact).toLocaleDateString() : 'Never'}
                 </dd>
               </div>
             </dl>
@@ -227,7 +233,7 @@ export const LeadDetails: React.FC = () => {
                         <div className="relative">
                           <div className="h-10 w-10 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white">
                             <span className="text-sm font-medium text-white">
-                              {note.created_by.charAt(0).toUpperCase()}
+                              {note.createdBy.charAt(0).toUpperCase()}
                             </span>
                           </div>
                         </div>
@@ -235,11 +241,11 @@ export const LeadDetails: React.FC = () => {
                           <div>
                             <div className="text-sm">
                               <span className="font-medium text-gray-900">
-                                {note.created_by}
+                                {note.createdBy}
                               </span>
                             </div>
                             <p className="mt-0.5 text-sm text-gray-500">
-                              {new Date(note.created_at).toLocaleString()}
+                              {new Date(note.createdAt).toLocaleString()}
                             </p>
                           </div>
                           <div className="mt-2 text-sm text-gray-700">
