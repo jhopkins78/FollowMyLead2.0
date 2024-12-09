@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { uploadLeads } from '../services/api';
+import { uploadLeads } from '@/services/api';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
 

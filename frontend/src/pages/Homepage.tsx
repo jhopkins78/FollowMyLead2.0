@@ -1,26 +1,31 @@
 import React from 'react'
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { ArrowRight, BarChart2, Bell, Facebook, Linkedin, RefreshCw, Mail } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
 
 export const Homepage: React.FC = () => {
-  const navigate = useNavigate();
-  
+  const router = useRouter();
+
+  const handleGetStarted = () => {
+    router.push('/register');
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold text-blue-600">FollowMyLead</Link>
+            <Link href="/" className="text-2xl font-bold text-blue-600">FollowMyLead</Link>
             <nav className="ml-10 hidden md:block">
               <ul className="flex space-x-4">
-                <li><Link to="/features" className="text-gray-500 hover:text-blue-600">Features</Link></li>
-                <li><Link to="/pricing" className="text-gray-500 hover:text-blue-600">Pricing</Link></li>
-                <li><Link to="/about" className="text-gray-500 hover:text-blue-600">About</Link></li>
+                <li><Link href="/features" className="text-gray-500 hover:text-blue-600">Features</Link></li>
+                <li><Link href="/pricing" className="text-gray-500 hover:text-blue-600">Pricing</Link></li>
+                <li><Link href="/about" className="text-gray-500 hover:text-blue-600">About</Link></li>
               </ul>
             </nav>
           </div>
           <button 
-            onClick={() => navigate('/login')}
+            onClick={() => router.push('/login')}
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
           >
             Log In
@@ -40,19 +45,16 @@ export const Homepage: React.FC = () => {
             <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
               <div className="rounded-md shadow">
                 <button
-                  onClick={() => navigate('/register')}
+                  onClick={handleGetStarted}
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
                 >
                   Get Started for Free
                 </button>
               </div>
               <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-                <a
-                  href="#about-us"
-                  className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
-                >
+                <Link href="#about-us" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
                   Learn More
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -190,18 +192,18 @@ export const Homepage: React.FC = () => {
       <footer className="bg-white mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex justify-center space-x-6">
-            <a href="https://www.linkedin.com/company/ucsb-technology-management/mycompany/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-500">
+            <Link href="https://www.linkedin.com/company/ucsb-technology-management/mycompany/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-500">
               <span className="sr-only">LinkedIn</span>
               <Linkedin className="h-6 w-6" />
-            </a>
-            <a href="https://www.facebook.com/ucsbmtm/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-500">
+            </Link>
+            <Link href="https://www.facebook.com/ucsbmtm/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-500">
               <span className="sr-only">Facebook</span>
               <Facebook className="h-6 w-6" />
-            </a>
-            <a href="mailto:tmp@tmp.ucsb.edu" className="text-gray-400 hover:text-gray-500">
+            </Link>
+            <Link href="mailto:tmp@tmp.ucsb.edu" className="text-gray-400 hover:text-gray-500">
               <span className="sr-only">Email</span>
               <Mail className="h-6 w-6" />
-            </a>
+            </Link>
           </div>
           <p className="mt-8 text-center text-base text-gray-400">
             &copy; 2024 FollowMyLead. All rights reserved.

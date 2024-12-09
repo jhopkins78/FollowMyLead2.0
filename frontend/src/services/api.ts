@@ -108,7 +108,7 @@ export const addLeadNote = async (id: string, content: string): Promise<ApiRespo
 };
 
 // Insights
-interface InsightData {
+export interface InsightData {
   leadSourceDistribution: { [key: string]: number };
   conversionRates: { [key: string]: number };
   engagementMetrics: {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { getLeadDetails, updateLeadStatus, addLeadNote } from '../services/api';
+import { getLeadDetails, updateLeadStatus, addLeadNote } from '@/services/api';
 import { LeadDetails as ILeadDetails, LeadNote, LeadStatus, NoteFormData } from '@/types/leads';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';

@@ -1,12 +1,19 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { ProtectedRoute } from '../ProtectedRoute';
-import { AuthProvider } from '../../contexts/AuthContext';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
+import { AuthProvider } from '@/contexts/AuthContext';
 import { vi } from 'vitest';
 
+// Mock Next.js router
+vi.mock('next/router', () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    asPath: '/protected'
+  })
+}));
+
 // Mock the useAuth hook
-vi.mock('../../contexts/AuthContext', () => ({
+vi.mock('@/contexts/AuthContext', () => ({
   useAuth: vi.fn(),
   AuthProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
@@ -15,22 +22,12 @@ describe('ProtectedRoute Component', () => {
   const TestComponent = () => <div>Protected Content</div>;
   
   const renderProtectedRoute = (user: any = null) => {
-    (require('../../contexts/AuthContext') as any).useAuth.mockReturnValue({ user });
+    (require('@/contexts/AuthContext') as any).useAuth.mockReturnValue({ user });
     
     return render(
-      <MemoryRouter initialEntries={['/protected']}>
-        <Routes>
-          <Route
-            path="/protected"
-            element={
-              <ProtectedRoute>
-                <TestComponent />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/login" element={<div>Login Page</div>} />
-        </Routes>
-      </MemoryRouter>
+      <ProtectedRoute>
+        <TestComponent />
+      </ProtectedRoute>
     );
   };
 
@@ -39,14 +36,23 @@ describe('ProtectedRoute Component', () => {
     expect(getByText('Protected Content')).toBeInTheDocument();
   });
 
-  it('redirects to login when user is not authenticated', () => {
-    const { getByText } = renderProtectedRoute(null);
-    expect(getByText('Login Page')).toBeInTheDocument();
+  it('returns null when user is not authenticated', () => {
+    const { container } = renderProtectedRoute(null);
+    expect(container.firstChild).toBeNull();
   });
 
-  it('preserves the redirect location', () => {
+  it('calls router.push with correct params when not authenticated', () => {
+    const mockPush = vi.fn();
+    (require('next/router') as any).useRouter.mockReturnValue({
+      push: mockPush,
+      asPath: '/protected'
+    });
+
     renderProtectedRoute(null);
-    const location = window.location;
-    expect(location.pathname).toBe('/login');
+    
+    expect(mockPush).toHaveBeenCalledWith({
+      pathname: '/login',
+      query: { returnUrl: '/protected' }
+    });
   });
 });
