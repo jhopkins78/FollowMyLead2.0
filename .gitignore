@@ -9,6 +9,8 @@ node_modules/
 # Production
 /build
 /dist
+frontend/build/
+frontend/dist/
 
 # Misc
 .DS_Store
@@ -79,3 +81,6 @@ lambda_functions/**/package/
 lambda_functions/**/*.dist-info/
 lambda_layers/**/python/
 response.json
+
+# Frontend
+!frontend/src/
