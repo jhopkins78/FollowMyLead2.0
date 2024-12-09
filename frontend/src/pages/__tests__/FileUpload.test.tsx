@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/router';
-import FileUpload from '@/app/upload/page';
+import FileUpload from '@/pages/FileUpload';
 import { AuthProvider } from '@/contexts/AuthContext';
 import * as api from '@/services/api';
 import { vi } from 'vitest';

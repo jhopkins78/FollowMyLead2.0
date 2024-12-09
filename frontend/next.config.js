@@ -3,15 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   distDir: 'dist',
-  // Specify the source directory
   experimental: {
     typedRoutes: true,
   },
-  // Configure path aliases
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': '/frontend/src'
+      '@': require('path').resolve(__dirname, './src')
     }
     return config
   }
