@@ -12,7 +12,7 @@ import {
   LineElement,
 } from 'chart.js';
 import { Bar, Pie, Line } from 'react-chartjs-2';
-import { getInsights } from '../services/api';
+import { getInsights } from '@/services/api';
 import toast from 'react-hot-toast';
 
 // Register ChartJS components
@@ -100,85 +100,59 @@ export const Insights: React.FC = () => {
     datasets: [{
       label: 'Lead Quality Distribution',
       data: Object.values(insightData.qualityMetrics.leadQualityDistribution),
-      backgroundColor: 'rgba(54, 162, 235, 0.5)',
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.5)',
+        'rgba(54, 162, 235, 0.5)',
+        'rgba(255, 206, 86, 0.5)',
+      ],
     }]
   };
 
   const engagementChart = {
     labels: Object.keys(insightData.engagementMetrics.totalVisits),
     datasets: [{
-      label: 'Visit Distribution',
+      label: 'Total Visits',
       data: Object.values(insightData.engagementMetrics.totalVisits),
-      borderColor: 'rgb(75, 192, 192)',
+      borderColor: 'rgba(75, 192, 192, 1)',
       tension: 0.1,
     }]
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Lead Insights Dashboard</h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-6">Lead Insights Dashboard</h1>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Conversion Rate Overview */}
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Conversion Rate Overview</h2>
-          <Bar data={conversionRateChart} options={{
-            responsive: true,
-            plugins: {
-              legend: { position: 'top' as const },
-              title: { display: true, text: 'Conversion Rates by Source' }
-            }
-          }} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white p-4 rounded-lg shadow">
+          <h2 className="text-lg font-semibold mb-4">Conversion Rates</h2>
+          <Bar data={conversionRateChart} />
         </div>
-
-        {/* Lead Source Distribution */}
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Lead Source Distribution</h2>
-          <Pie data={leadSourceChart} options={{
-            responsive: true,
-            plugins: {
-              legend: { position: 'top' as const },
-            }
-          }} />
+        
+        <div className="bg-white p-4 rounded-lg shadow">
+          <h2 className="text-lg font-semibold mb-4">Lead Sources</h2>
+          <Pie data={leadSourceChart} />
         </div>
-
-        {/* Lead Quality Distribution */}
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Lead Quality Distribution</h2>
-          <Bar data={qualityChart} options={{
-            responsive: true,
-            plugins: {
-              legend: { position: 'top' as const },
-            }
-          }} />
+        
+        <div className="bg-white p-4 rounded-lg shadow">
+          <h2 className="text-lg font-semibold mb-4">Lead Quality Distribution</h2>
+          <Pie data={qualityChart} />
         </div>
-
-        {/* Engagement Metrics */}
-        <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Engagement Trends</h2>
-          <Line data={engagementChart} options={{
-            responsive: true,
-            plugins: {
-              legend: { position: 'top' as const },
-            }
-          }} />
+        
+        <div className="bg-white p-4 rounded-lg shadow">
+          <h2 className="text-lg font-semibold mb-4">Engagement Over Time</h2>
+          <Line data={engagementChart} />
         </div>
-
-        {/* Key Metrics Summary */}
-        <div className="bg-white p-6 rounded-lg shadow-lg col-span-full">
-          <h2 className="text-xl font-semibold mb-4">Key Metrics Summary</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="text-center">
+        
+        <div className="bg-white p-4 rounded-lg shadow col-span-2">
+          <h2 className="text-lg font-semibold mb-4">Key Metrics</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
               <p className="text-gray-600">Average Time Spent</p>
-              <p className="text-2xl font-bold">{insightData.engagementMetrics.averageTimeSpent.toFixed(2)} mins</p>
+              <p className="text-2xl font-bold">{insightData.engagementMetrics.averageTimeSpent} min</p>
             </div>
-            <div className="text-center">
+            <div>
               <p className="text-gray-600">Average Page Views</p>
-              <p className="text-2xl font-bold">{insightData.engagementMetrics.averagePageViews.toFixed(2)}</p>
-            </div>
-            <div className="text-center">
-              <p className="text-gray-600">Total Lead Sources</p>
-              <p className="text-2xl font-bold">{Object.keys(insightData.leadSourceDistribution).length}</p>
+              <p className="text-2xl font-bold">{insightData.engagementMetrics.averagePageViews}</p>
             </div>
           </div>
         </div>
