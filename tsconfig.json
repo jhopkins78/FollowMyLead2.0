@@ -19,11 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "@/components/*": ["./app/components/*", "./frontend/src/components/*"],
-      "@/services/*": ["./app/services/*", "./frontend/src/services/*"],
-      "@/types/*": ["./app/types/*", "./frontend/src/types/*"],
-      "@/lib/*": ["./app/lib/*", "./frontend/src/lib/*"],
+      "@/*": ["./frontend/src/*"],
+      "@/components/*": ["./frontend/src/components/*"],
+      "@/services/*": ["./frontend/src/services/*"],
+      "@/types/*": ["./frontend/src/types/*"],
+      "@/lib/*": ["./frontend/src/lib/*"],
       "@/contexts/*": ["./frontend/src/contexts/*"],
       "@/pages/*": ["./frontend/src/pages/*"]
     },
@@ -32,13 +32,7 @@
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "frontend/src/**/*"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "frontend/src/**/*"],
   "exclude": ["node_modules"],
   "references": [
     {
