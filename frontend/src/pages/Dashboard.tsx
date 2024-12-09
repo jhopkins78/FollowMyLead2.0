@@ -21,8 +21,8 @@ const Dashboard: React.FC = () => {
   const fetchLeads = async () => {
     try {
       const response = await api.getLeads();
-      if (response.data && response.data.leads) {
-        setLeads(response.data.leads);
+      if (response.data && response.data.data) {
+        setLeads(response.data.data);
       } else {
         setLeads([]);
       }

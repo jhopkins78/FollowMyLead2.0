@@ -54,7 +54,7 @@ describe('Dashboard Component', () => {
     vi.clearAllMocks();
     (api.getLeads as any).mockResolvedValue({
       data: {
-        leads: mockLeads,
+        data: mockLeads,
         message: 'Leads fetched successfully'
       }
     });
