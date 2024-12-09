@@ -3,9 +3,10 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
@@ -17,25 +18,24 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.468.0",
-    "next": "^15.0.4",
+    "next": "14.0.4",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.53.2",
     "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^7.0.1",
     "tailwind-merge": "^2.5.5",
     "web-vitals": "^3.5.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "14.0.4",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
-    "typescript": "^4.9.5",
-    "vite": "^6.0.3"
+    "typescript": "^4.9.5"
   }
 }
