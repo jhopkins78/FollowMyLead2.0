@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getLeadDetails, updateLeadStatus, addLeadNote } from '../services/api';
 import { LeadDetails as ILeadDetails, LeadNote, LeadStatus, NoteFormData } from '@/types/leads';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 interface LeadDetails extends ILeadDetails {
   notes: LeadNote[];
