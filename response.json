@@ -1,0 +1,1 @@
+{"statusCode": 500, "headers": {"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Credentials": true}, "body": "{\"message\": \"Database error occurred\", \"error\": \"No module named 'psycopg2._psycopg'\"}"}
