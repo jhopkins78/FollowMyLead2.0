@@ -48,8 +48,8 @@ export const Insights: React.FC = () => {
 
   const fetchInsights = async () => {
     try {
-      const data = await getInsights();
-      setInsightData(data);
+      const response = await getInsights();
+      setInsightData(response.data.data);
     } catch (error) {
       toast.error('Failed to fetch insights data');
       console.error('Error fetching insights:', error);

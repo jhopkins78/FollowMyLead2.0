@@ -24,8 +24,8 @@ export const LeadDetails: React.FC = () => {
 
   const fetchLeadDetails = async () => {
     try {
-      const data = await getLeadDetails(id as string);
-      setLead(data);
+      const response = await getLeadDetails(id as string);
+      setLead(response.data.data);
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Failed to fetch lead details');
       router.push('/dashboard');
@@ -46,7 +46,8 @@ export const LeadDetails: React.FC = () => {
 
   const onNoteSubmit = async (data: NoteFormData) => {
     try {
-      const newNote = await addLeadNote(id as string, data.content);
+      const response = await addLeadNote(id as string, data.content);
+      const newNote = response.data.data;
       setLead(prev => prev ? { ...prev, notes: [newNote, ...prev.notes] } : null);
       resetNoteForm();
       toast.success('Note added successfully');
