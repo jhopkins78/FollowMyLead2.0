@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useParams } from 'next/navigation'
 import { getLeadDetails, updateLeadStatus, addLeadNote } from '@/services/api'
+import { LeadDetails, LeadNote, LeadStatus, NoteFormData } from '@/types/leads'
 import { toast } from 'sonner'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
@@ -21,37 +22,8 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { AlertCircle } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
-interface LeadNote {
-  id: string
-  content: string
-  created_at: string
-  created_by: string
-}
-
-interface LeadDetails {
-  id: string
-  name: string
-  email: string
-  phone: string
-  company: string
-  score: number
-  status: 'new' | 'contacted' | 'qualified' | 'converted' | 'lost'
-  created_at: string
-  notes: LeadNote[]
-  last_contact: string | null
-  industry: string
-  location: string
-  source: string
-  estimated_value: number
-}
-
-interface NoteFormData {
-  content: string
-}
-
 export default function LeadDetailsPage() {
   const params = useParams()
-  const router = useRouter()
   const id = params.id as string
   const [lead, setLead] = useState<LeadDetails | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -78,7 +50,7 @@ export default function LeadDetailsPage() {
     }
   }
 
-  const handleStatusChange = async (newStatus: LeadDetails['status']) => {
+  const handleStatusChange = async (newStatus: LeadStatus) => {
     if (!lead) return
     try {
       setIsUpdatingStatus(true)
@@ -118,7 +90,7 @@ export default function LeadDetailsPage() {
     return 'text-red-600 bg-red-100'
   }
 
-  const getStatusColor = (status: LeadDetails['status']) => {
+  const getStatusColor = (status: LeadStatus) => {
     const colors = {
       new: 'bg-blue-100 text-blue-800',
       contacted: 'bg-yellow-100 text-yellow-800',

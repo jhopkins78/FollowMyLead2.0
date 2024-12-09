@@ -4,7 +4,7 @@ export interface LeadDetails {
   email: string;
   phone?: string;
   company?: string;
-  status: string;
+  status: LeadStatus;
   source: string;
   notes: LeadNote[];
   createdAt: string;
@@ -18,4 +18,16 @@ export interface LeadNote {
   createdBy: string;
 }
 
+export interface NoteFormData {
+  content: string;
+}
+
 export type LeadStatus = 'new' | 'contacted' | 'qualified' | 'proposal' | 'negotiation' | 'closed' | 'lost';
+
+export interface Lead {
+  id: string;
+  name: string;
+  email: string;
+  status: LeadStatus;
+  createdAt: string;
+}

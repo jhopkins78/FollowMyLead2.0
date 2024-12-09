@@ -1,40 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { getLeadDetails, updateLeadStatus, addLeadNote } from '../services/api';
-import toast from 'react-hot-toast';
-import { useForm } from 'react-hook-form';
+import { LeadDetails as ILeadDetails, LeadNote, LeadStatus, NoteFormData } from '@/types/leads';
 
-interface LeadNote {
-  id: string;
-  content: string;
-  created_at: string;
-  created_by: string;
-}
-
-interface LeadDetails {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  company: string;
-  score: number;
-  status: 'new' | 'contacted' | 'qualified' | 'converted' | 'lost';
-  created_at: string;
+interface LeadDetails extends ILeadDetails {
   notes: LeadNote[];
-  last_contact: string | null;
-  industry: string;
-  location: string;
-  source: string;
-  estimated_value: number;
-}
-
-interface NoteFormData {
-  content: string;
 }
 
 export const LeadDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [lead, setLead] = useState<LeadDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { register: noteRegister, handleSubmit: handleNoteSubmit, reset: resetNoteForm } = useForm<NoteFormData>();
@@ -55,7 +29,7 @@ export const LeadDetails: React.FC = () => {
     }
   };
 
-  const handleStatusChange = async (newStatus: LeadDetails['status']) => {
+  const handleStatusChange = async (newStatus: LeadStatus) => {
     try {
       await updateLeadStatus(id!, newStatus);
       setLead(prev => prev ? { ...prev, status: newStatus } : null);
@@ -82,7 +56,7 @@ export const LeadDetails: React.FC = () => {
     return 'text-red-600 bg-red-100';
   };
 
-  const getStatusColor = (status: LeadDetails['status']) => {
+  const getStatusColor = (status: LeadStatus) => {
     const colors = {
       new: 'bg-blue-100 text-blue-800',
       contacted: 'bg-yellow-100 text-yellow-800',
@@ -158,7 +132,7 @@ export const LeadDetails: React.FC = () => {
                 <dd className="mt-1">
                   <select
                     value={lead.status}
-                    onChange={(e) => handleStatusChange(e.target.value as LeadDetails['status'])}
+                    onChange={(e) => handleStatusChange(e.target.value as LeadStatus)}
                     className={`text-sm rounded-full px-3 py-1 font-semibold ${getStatusColor(lead.status)}`}
                   >
                     {['new', 'contacted', 'qualified', 'converted', 'lost'].map((status) => (
