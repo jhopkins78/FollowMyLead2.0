@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { getLeadDetails, updateLeadStatus, addLeadNote } from '../services/api';
 import { LeadDetails as ILeadDetails, LeadNote, LeadStatus, NoteFormData } from '@/types/leads';
 import { useForm } from 'react-hook-form';
@@ -10,22 +10,25 @@ interface LeadDetails extends ILeadDetails {
 }
 
 export const LeadDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
+  const { id } = router.query;
   const [lead, setLead] = useState<LeadDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { register: noteRegister, handleSubmit: handleNoteSubmit, reset: resetNoteForm } = useForm<NoteFormData>();
 
   useEffect(() => {
-    fetchLeadDetails();
+    if (id) {
+      fetchLeadDetails();
+    }
   }, [id]);
 
   const fetchLeadDetails = async () => {
     try {
-      const data = await getLeadDetails(id!);
+      const data = await getLeadDetails(id as string);
       setLead(data);
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Failed to fetch lead details');
-      navigate('/dashboard');
+      router.push('/dashboard');
     } finally {
       setIsLoading(false);
     }
@@ -33,7 +36,7 @@ export const LeadDetails: React.FC = () => {
 
   const handleStatusChange = async (newStatus: LeadStatus) => {
     try {
-      await updateLeadStatus(id!, newStatus);
+      await updateLeadStatus(id as string, newStatus);
       setLead(prev => prev ? { ...prev, status: newStatus } : null);
       toast.success('Status updated successfully');
     } catch (error: any) {
@@ -43,7 +46,7 @@ export const LeadDetails: React.FC = () => {
 
   const onNoteSubmit = async (data: NoteFormData) => {
     try {
-      const response = await addLeadNote(id!, data.content);
+      const response = await addLeadNote(id as string, data.content);
       setLead(prev => prev ? { ...prev, notes: [response.data, ...prev.notes] } : null);
       resetNoteForm();
       toast.success('Note added successfully');
@@ -91,7 +94,7 @@ export const LeadDetails: React.FC = () => {
           </div>
           <div className="mt-4 flex md:mt-0 md:ml-4">
             <button
-              onClick={() => navigate('/dashboard')}
+              onClick={() => router.push('/dashboard')}
               className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
             >
               Back to Dashboard
