@@ -4,6 +4,7 @@ export interface LeadDetails {
   email: string;
   phone?: string;
   company?: string;
+  industry?: string;
   status: LeadStatus;
   source: string;
   notes: LeadNote[];

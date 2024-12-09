@@ -120,7 +120,7 @@ export const LeadDetails: React.FC = () => {
               </div>
               <div className="sm:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">Industry</dt>
-                <dd className="mt-1 text-sm text-gray-900">{lead.industry}</dd>
+                <dd className="mt-1 text-sm text-gray-900">{lead.industry || 'Not specified'}</dd>
               </div>
               <div className="sm:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">Location</dt>
