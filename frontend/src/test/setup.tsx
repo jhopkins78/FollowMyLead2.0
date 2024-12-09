@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
 import { TextEncoder, TextDecoder } from 'util';
+import React from 'react';
 
 // Mock Next.js router
 vi.mock('next/router', () => ({
@@ -15,9 +16,9 @@ vi.mock('next/router', () => ({
 // Mock Next/Image
 vi.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img {...props} alt={props.alt} />;
+  default: ({ src, alt, ...props }: { src: string; alt: string; [key: string]: any }) => {
+    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+    return React.createElement('img', { src, alt, ...props });
   },
 }));
 
