@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
-import { Label } from "../components/ui/label"
-import { Linkedin, Facebook, Mail } from 'lucide-react'
-import toast from 'react-hot-toast'
+'use client'
 
-export const Login: React.FC = () => {
+import Link from 'next/link'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Linkedin, Facebook, Mail } from 'lucide-react'
+import { useToast } from "@/components/ui/use-toast"
+
+export default function LogIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({ email: '', password: '' })
-  const navigate = useNavigate()
+  const router = useRouter()
+  const { toast } = useToast()
 
   const validateForm = () => {
     let isValid = true
@@ -43,10 +47,17 @@ export const Login: React.FC = () => {
         // Here you would typically call your login API
         // For now, we'll just simulate a successful login
         await new Promise(resolve => setTimeout(resolve, 1000))
-        toast.success('Successfully logged in!')
-        navigate('/dashboard')
+        toast({
+          title: "Success",
+          description: "Successfully logged in!",
+        })
+        router.push('/dashboard')
       } catch (error) {
-        toast.error('Invalid email or password')
+        toast({
+          title: "Error",
+          description: "Invalid email or password",
+          variant: "destructive",
+        })
       }
     }
   }
@@ -56,12 +67,12 @@ export const Login: React.FC = () => {
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold text-blue-600">FollowMyLead</Link>
+            <Link href="/" className="text-2xl font-bold text-blue-600">FollowMyLead</Link>
             <nav className="ml-10 hidden md:block">
               <ul className="flex space-x-4">
-                <li><Link to="/features" className="text-gray-500 hover:text-blue-600">Features</Link></li>
-                <li><Link to="/pricing" className="text-gray-500 hover:text-blue-600">Pricing</Link></li>
-                <li><Link to="/about" className="text-gray-500 hover:text-blue-600">About</Link></li>
+                <li><a href="#features" className="text-gray-500 hover:text-blue-600">Features</a></li>
+                <li><a href="#pricing" className="text-gray-500 hover:text-blue-600">Pricing</a></li>
+                <li><a href="#about" className="text-gray-500 hover:text-blue-600">About</a></li>
               </ul>
             </nav>
           </div>
@@ -74,9 +85,9 @@ export const Login: React.FC = () => {
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or{' '}
-              <a href="/register" className="font-medium text-blue-600 hover:text-blue-500">
+              <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-500">
                 create a new account
-              </a>
+              </Link>
             </p>
           </div>
 
@@ -119,7 +130,7 @@ export const Login: React.FC = () => {
 
                 <div className="flex items-center justify-between">
                   <div className="text-sm">
-                    <Link to="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
+                    <Link href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
                       Forgot your password?
                     </Link>
                   </div>
@@ -159,6 +170,3 @@ export const Login: React.FC = () => {
       </footer>
     </div>
   )
-}
-
-export default Login
