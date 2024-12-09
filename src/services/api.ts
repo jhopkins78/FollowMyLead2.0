@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { LeadDetails, LeadNote, LeadStatus } from '@/types/leads';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5002';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+const INSIGHTS_API_URL = process.env.NEXT_PUBLIC_INSIGHTS_API_URL || 'https://cz0zmv145h.execute-api.us-west-1.amazonaws.com/prod';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -18,27 +20,52 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+interface ApiResponse<T> {
+  data: {
+    data: T;
+    message?: string;
+  };
+}
+
 // Authentication
-export const login = async (email: string, password: string) => {
-  const response = await api.post('/api/login', { email, password });
+export const login = async (data: { email: string; password: string }): Promise<ApiResponse<{ token: string; user: any }>> => {
+  const response = await api.post('/auth/login', data);
   return response.data;
 };
 
-export const register = async (username: string, email: string, password: string) => {
-  const response = await api.post('/api/register', { username, email, password });
+export const register = async (data: { username: string; email: string; password: string }): Promise<ApiResponse<{ token: string; user: any }>> => {
+  const response = await api.post('/auth/register', data);
   return response.data;
 };
 
 // Leads
-export const getLeads = async () => {
-  const response = await api.get('/api/leads');
+export const getLeads = async (): Promise<ApiResponse<LeadDetails[]>> => {
+  const response = await api.get('/leads');
   return response.data;
 };
 
-export const uploadLeads = async (file: File) => {
+export const createLead = async (leadData: Partial<LeadDetails>): Promise<ApiResponse<LeadDetails>> => {
+  const response = await api.post('/leads', leadData);
+  return response.data;
+};
+
+export const updateLead = async (
+  leadId: string,
+  leadData: Partial<LeadDetails>
+): Promise<ApiResponse<LeadDetails>> => {
+  const response = await api.put(`/leads/${leadId}`, leadData);
+  return response.data;
+};
+
+export const deleteLead = async (leadId: string): Promise<ApiResponse<void>> => {
+  const response = await api.delete(`/leads/${leadId}`);
+  return response.data;
+};
+
+export const uploadLeads = async (file: File): Promise<ApiResponse<void>> => {
   const formData = new FormData();
   formData.append('file', file);
-  const response = await api.post('/api/upload-csv', formData, {
+  const response = await api.post('/leads/upload-csv', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -46,25 +73,58 @@ export const uploadLeads = async (file: File) => {
   return response.data;
 };
 
-export const updateLeadStatus = async (leadId: number, status: string) => {
-  const response = await api.patch(`/api/leads/${leadId}`, { status });
+export const uploadFile = async (file: File): Promise<ApiResponse<void>> => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await api.post('/api/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return response.data;
 };
 
-// Lead Details API Endpoints
-export const getLeadDetails = async (leadId: string) => {
-  const response = await api.get(`/api/leads/${leadId}`);
+// Lead Details
+export const getLeadDetails = async (id: string): Promise<ApiResponse<LeadDetails>> => {
+  const response = await api.get(`/leads/${id}`);
   return response.data;
 };
 
-export const updateLeadStatusDetail = async (leadId: string, status: string) => {
-  const response = await api.patch(`/api/leads/${leadId}/status`, { status });
+export const updateLeadStatus = async (id: string, status: LeadStatus): Promise<ApiResponse<void>> => {
+  await api.patch(`/leads/${id}/status`, { status });
+  return { data: { data: undefined } };
+};
+
+export const addLeadNote = async (id: string, content: string): Promise<ApiResponse<LeadNote>> => {
+  const response = await api.post(`/leads/${id}/notes`, {
+    content,
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
   return response.data;
 };
 
-export const addLeadNote = async (leadId: string, content: string) => {
-  const response = await api.post(`/api/leads/${leadId}/notes`, { content });
-  return response.data;
+// Insights
+export interface InsightData {
+  leadSourceDistribution: { [key: string]: number };
+  conversionRates: { [key: string]: number };
+  engagementMetrics: {
+    averageTimeSpent: number;
+    averagePageViews: number;
+    totalVisits: { [key: string]: number };
+  };
+  qualityMetrics: {
+    leadQualityDistribution: { [key: string]: number };
+    profileScoreDistribution: { [key: string]: number };
+  };
+}
+
+export const getInsights = async (): Promise<ApiResponse<InsightData>> => {
+  const response = await axios.get(`${INSIGHTS_API_URL}/insights`);
+  return { data: { data: response.data } };
 };
 
 // Error handler

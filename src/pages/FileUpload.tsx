@@ -1,12 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { uploadLeads } from '../services/api';
+import { uploadLeads } from '@/services/api';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 export const FileUpload: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
@@ -21,13 +21,13 @@ export const FileUpload: React.FC = () => {
     try {
       await uploadLeads(file);
       toast.success('File uploaded successfully!');
-      navigate('/dashboard');
+      router.push('/dashboard');
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Upload failed');
     } finally {
       setIsUploading(false);
     }
-  }, [navigate]);
+  }, [router]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -115,3 +115,5 @@ export const FileUpload: React.FC = () => {
     </div>
   );
 };
+
+export default FileUpload;

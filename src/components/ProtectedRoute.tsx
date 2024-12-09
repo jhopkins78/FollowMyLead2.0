@@ -1,6 +1,6 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -8,11 +8,22 @@ interface ProtectedRouteProps {
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { user } = useAuth();
-  const location = useLocation();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      router.push({
+        pathname: '/login',
+        query: { returnUrl: router.asPath }
+      });
+    }
+  }, [user, router]);
 
   if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return null; // or a loading spinner
   }
 
   return <>{children}</>;
 };
+
+export default ProtectedRoute;

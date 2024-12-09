@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { getLeads, updateLeadStatus } from '../services/api';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import * as api from '@/services/api';
+import { LeadDetails } from '@/types/leads';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Spinner } from '@/components/ui/spinner';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
 
-interface Lead {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  company: string;
-  score: number;
-  status: 'new' | 'contacted' | 'qualified' | 'converted' | 'lost';
-  created_at: string;
-}
-
-export const Dashboard: React.FC = () => {
-  const [leads, setLeads] = useState<Lead[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [sortField, setSortField] = useState<keyof Lead>('score');
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+const Dashboard: React.FC = () => {
+  const router = useRouter();
+  const [leads, setLeads] = useState<LeadDetails[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchLeads();
@@ -26,164 +20,99 @@ export const Dashboard: React.FC = () => {
 
   const fetchLeads = async () => {
     try {
-      const response = await getLeads();
-      setLeads(response.data);
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to fetch leads');
-    } finally {
-      setIsLoading(false);
+      const response = await api.getLeads();
+      if (response.data && response.data.data) {
+        setLeads(response.data.data);
+      } else {
+        setLeads([]);
+      }
+      setLoading(false);
+    } catch (error) {
+      toast.error('Failed to fetch leads');
+      setLoading(false);
     }
   };
 
-  const handleStatusUpdate = async (leadId: string, newStatus: Lead['status']) => {
-    try {
-      await updateLeadStatus(leadId, newStatus);
-      setLeads(leads.map(lead => 
-        lead.id === leadId ? { ...lead, status: newStatus } : lead
-      ));
-      toast.success('Status updated successfully');
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to update status');
-    }
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
   };
 
-  const sortLeads = (field: keyof Lead) => {
-    if (sortField === field) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortField(field);
-      setSortDirection('desc');
-    }
+  const filteredLeads = leads.filter((lead) =>
+    lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    lead.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    lead.company?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleUpload = () => {
+    router.push('/upload');
   };
 
-  const sortedLeads = [...leads].sort((a, b) => {
-    const aValue = a[sortField];
-    const bValue = b[sortField];
-    const direction = sortDirection === 'asc' ? 1 : -1;
-    
-    if (typeof aValue === 'number' && typeof bValue === 'number') {
-      return (aValue - bValue) * direction;
-    }
-    return String(aValue).localeCompare(String(bValue)) * direction;
-  });
-
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600 bg-green-100';
-    if (score >= 60) return 'text-yellow-600 bg-yellow-100';
-    return 'text-red-600 bg-red-100';
+  const handleViewDetails = (leadId: string) => {
+    router.push(`/leads/${leadId}`);
   };
 
-  const getStatusColor = (status: Lead['status']) => {
-    const colors = {
-      new: 'bg-blue-100 text-blue-800',
-      contacted: 'bg-yellow-100 text-yellow-800',
-      qualified: 'bg-green-100 text-green-800',
-      converted: 'bg-purple-100 text-purple-800',
-      lost: 'bg-gray-100 text-gray-800'
-    };
-    return colors[status];
-  };
-
-  if (isLoading) {
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500"></div>
+      <div className="flex h-screen items-center justify-center">
+        <Spinner size="lg" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Lead Dashboard</h1>
-          <Link
-            to="/upload"
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700"
-          >
-            Upload Leads
-          </Link>
-        </div>
-
-        <div className="bg-white shadow overflow-hidden rounded-lg">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  {['Name', 'Email', 'Company', 'Score', 'Status', 'Created At'].map((header, index) => (
-                    <th
-                      key={index}
-                      onClick={() => sortLeads(header.toLowerCase().replace(' ', '_') as keyof Lead)}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
-                    >
-                      <div className="flex items-center">
-                        {header}
-                        {sortField === header.toLowerCase().replace(' ', '_') && (
-                          <span className="ml-2">
-                            {sortDirection === 'asc' ? '↑' : '↓'}
-                          </span>
-                        )}
-                      </div>
-                    </th>
-                  ))}
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {sortedLeads.map((lead) => (
-                  <tr key={lead.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <Link 
-                        to={`/leads/${lead.id}`}
-                        className="text-primary-600 hover:text-primary-900"
-                      >
-                        {lead.name}
-                      </Link>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{lead.email}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500">{lead.company}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getScoreColor(lead.score)}`}>
-                        {lead.score}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <select
-                        value={lead.status}
-                        onChange={(e) => handleStatusUpdate(lead.id, e.target.value as Lead['status'])}
-                        className={`text-sm rounded-full px-3 py-1 font-semibold ${getStatusColor(lead.status)}`}
-                      >
-                        {['new', 'contacted', 'qualified', 'converted', 'lost'].map((status) => (
-                          <option key={status} value={status}>
-                            {status.charAt(0).toUpperCase() + status.slice(1)}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(lead.created_at).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <Link
-                        to={`/leads/${lead.id}`}
-                        className="text-primary-600 hover:text-primary-900"
-                      >
-                        View Details
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div className="container mx-auto p-4">
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Leads Dashboard</h1>
+        <Button onClick={handleUpload}>Upload Leads</Button>
       </div>
+
+      <Input
+        type="text"
+        placeholder="Search leads..."
+        value={searchTerm}
+        onChange={handleSearch}
+        className="mb-6"
+      />
+
+      {filteredLeads.length === 0 ? (
+        <div className="text-center text-gray-500">
+          No leads found. Try uploading some leads or adjusting your search.
+        </div>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredLeads.map((lead) => (
+            <Card key={lead.id} className="p-4">
+              <div className="mb-2 flex items-center justify-between">
+                <h3 className="font-semibold">{lead.name}</h3>
+                <span
+                  className={`rounded-full px-2 py-1 text-xs ${
+                    lead.score && lead.score >= 80
+                      ? 'bg-green-100 text-green-800'
+                      : lead.score && lead.score >= 50
+                      ? 'bg-yellow-100 text-yellow-800'
+                      : 'bg-red-100 text-red-800'
+                  }`}
+                >
+                  {lead.score ? `${lead.score}%` : 'N/A'}
+                </span>
+              </div>
+              <p className="text-sm text-gray-600">{lead.email}</p>
+              {lead.company && (
+                <p className="text-sm text-gray-600">{lead.company}</p>
+              )}
+              <Button
+                variant="outline"
+                className="mt-4 w-full"
+                onClick={() => handleViewDetails(lead.id)}
+              >
+                View Details
+              </Button>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
+
+export default Dashboard;
