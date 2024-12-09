@@ -53,6 +53,7 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
+  font-feature-settings: "rlig" 1, "calt" 1;
 }
 
 @layer base {
