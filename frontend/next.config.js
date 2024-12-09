@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  distDir: 'dist',
   experimental: {
     typedRoutes: true,
   },
@@ -12,7 +11,10 @@ const nextConfig = {
       '@': require('path').resolve(__dirname, './src')
     }
     return config
-  }
+  },
+  output: 'standalone',
+  poweredByHeader: false,
+  compress: true,
 }
 
 module.exports = nextConfig
