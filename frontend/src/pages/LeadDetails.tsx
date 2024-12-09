@@ -129,9 +129,13 @@ export const LeadDetails: React.FC = () => {
               <div className="sm:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">Lead Score</dt>
                 <dd className="mt-1">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getScoreColor(lead.score)}`}>
-                    {lead.score}
-                  </span>
+                  {lead.score !== undefined ? (
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getScoreColor(lead.score)}`}>
+                      {lead.score}
+                    </span>
+                  ) : (
+                    <span className="text-sm text-gray-500">Not available</span>
+                  )}
                 </dd>
               </div>
               <div className="sm:col-span-1">
