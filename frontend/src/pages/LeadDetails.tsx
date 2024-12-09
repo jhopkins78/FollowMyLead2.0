@@ -62,11 +62,13 @@ export const LeadDetails: React.FC = () => {
   };
 
   const getStatusColor = (status: LeadStatus) => {
-    const colors = {
+    const colors: Record<LeadStatus, string> = {
       new: 'bg-blue-100 text-blue-800',
       contacted: 'bg-yellow-100 text-yellow-800',
       qualified: 'bg-green-100 text-green-800',
-      converted: 'bg-purple-100 text-purple-800',
+      proposal: 'bg-indigo-100 text-indigo-800',
+      negotiation: 'bg-purple-100 text-purple-800',
+      closed: 'bg-teal-100 text-teal-800',
       lost: 'bg-gray-100 text-gray-800'
     };
     return colors[status];
@@ -140,7 +142,7 @@ export const LeadDetails: React.FC = () => {
                     onChange={(e) => handleStatusChange(e.target.value as LeadStatus)}
                     className={`text-sm rounded-full px-3 py-1 font-semibold ${getStatusColor(lead.status)}`}
                   >
-                    {['new', 'contacted', 'qualified', 'converted', 'lost'].map((status) => (
+                    {['new', 'contacted', 'qualified', 'proposal', 'negotiation', 'closed', 'lost'].map((status) => (
                       <option key={status} value={status}>
                         {status.charAt(0).toUpperCase() + status.slice(1)}
                       </option>
