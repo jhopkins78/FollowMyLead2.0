@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
   const fetchLeads = async () => {
     try {
       const response = await api.getLeads();
-      setLeads(response.data);
+      setLeads(response.data.data);
       setLoading(false);
     } catch (error) {
       toast.error('Failed to fetch leads');
@@ -40,8 +40,7 @@ const Dashboard: React.FC = () => {
   );
 
   const handleUpload = () => {
-    // Implement file upload logic
-    toast.error('File upload not implemented yet');
+    router.push('/upload');
   };
 
   const handleViewDetails = (leadId: string) => {
