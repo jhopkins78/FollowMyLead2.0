@@ -46,8 +46,8 @@ export const LeadDetails: React.FC = () => {
 
   const onNoteSubmit = async (data: NoteFormData) => {
     try {
-      const response = await addLeadNote(id as string, data.content);
-      setLead(prev => prev ? { ...prev, notes: [response.data, ...prev.notes] } : null);
+      const newNote = await addLeadNote(id as string, data.content);
+      setLead(prev => prev ? { ...prev, notes: [newNote, ...prev.notes] } : null);
       resetNoteForm();
       toast.success('Note added successfully');
     } catch (error: any) {
