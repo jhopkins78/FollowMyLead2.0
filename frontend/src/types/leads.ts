@@ -7,6 +7,7 @@ export interface LeadDetails {
   industry?: string;
   location?: string;
   score?: number;
+  estimated_value?: number;
   status: LeadStatus;
   source: string;
   notes: LeadNote[];

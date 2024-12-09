@@ -160,7 +160,13 @@ export const LeadDetails: React.FC = () => {
               </div>
               <div className="sm:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">Estimated Value</dt>
-                <dd className="mt-1 text-sm text-gray-900">${lead.estimated_value.toLocaleString()}</dd>
+                <dd className="mt-1 text-sm text-gray-900">
+                  {lead.estimated_value !== undefined ? (
+                    `$${lead.estimated_value.toLocaleString()}`
+                  ) : (
+                    'Not specified'
+                  )}
+                </dd>
               </div>
               <div className="sm:col-span-1">
                 <dt className="text-sm font-medium text-gray-500">Created At</dt>
