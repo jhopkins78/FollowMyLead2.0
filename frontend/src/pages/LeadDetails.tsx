@@ -21,8 +21,8 @@ export const LeadDetails: React.FC = () => {
 
   const fetchLeadDetails = async () => {
     try {
-      const response = await getLeadDetails(id!);
-      setLead(response.data);
+      const data = await getLeadDetails(id!);
+      setLead(data);
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Failed to fetch lead details');
       navigate('/dashboard');
