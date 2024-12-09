@@ -115,3 +115,5 @@ export const FileUpload: React.FC = () => {
     </div>
   );
 };
+
+export default FileUpload;

@@ -265,3 +265,5 @@ export const LeadDetails: React.FC = () => {
     </div>
   );
 };
+
+export default LeadDetails;

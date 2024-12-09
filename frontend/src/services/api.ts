@@ -2,6 +2,7 @@ import axios from 'axios';
 import { LeadDetails, LeadNote, LeadStatus } from '@/types/leads';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+const INSIGHTS_API_URL = process.env.NEXT_PUBLIC_INSIGHTS_API_URL || 'https://cz0zmv145h.execute-api.us-west-1.amazonaws.com/prod';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -107,9 +108,23 @@ export const addLeadNote = async (id: string, content: string): Promise<ApiRespo
 };
 
 // Insights
-export const getInsights = async (): Promise<ApiResponse<any>> => {
-  const response = await axios.get('https://cz0zmv145h.execute-api.us-west-1.amazonaws.com/prod/insights');
-  return response.data;
+interface InsightData {
+  leadSourceDistribution: { [key: string]: number };
+  conversionRates: { [key: string]: number };
+  engagementMetrics: {
+    averageTimeSpent: number;
+    averagePageViews: number;
+    totalVisits: { [key: string]: number };
+  };
+  qualityMetrics: {
+    leadQualityDistribution: { [key: string]: number };
+    profileScoreDistribution: { [key: string]: number };
+  };
+}
+
+export const getInsights = async (): Promise<ApiResponse<InsightData>> => {
+  const response = await axios.get(`${INSIGHTS_API_URL}/insights`);
+  return { data: { data: response.data } };
 };
 
 // Error handler
