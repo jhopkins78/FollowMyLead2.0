@@ -1,37 +1,35 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import { Login } from '../Login';
-import { AuthProvider } from '../../contexts/AuthContext';
-import * as api from '../../services/api';
+import { useRouter } from 'next/router';
+import Login from '@/app/login/page';
+import { AuthProvider } from '@/contexts/AuthContext';
+import * as api from '@/services/api';
 import { vi } from 'vitest';
 
-vi.mock('../../services/api');
+vi.mock('next/router', () => ({
+  useRouter: vi.fn()
+}));
+vi.mock('@/services/api');
 vi.mock('react-hot-toast');
 
-const mockNavigate = vi.fn();
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-  };
-});
+const mockRouter = {
+  push: vi.fn(),
+  pathname: '/login'
+};
+
+const renderLogin = () => {
+  (useRouter as jest.Mock).mockReturnValue(mockRouter);
+  return render(
+    <AuthProvider>
+      <Login />
+    </AuthProvider>
+  );
+};
 
 describe('Login Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  const renderLogin = () => {
-    render(
-      <BrowserRouter>
-        <AuthProvider>
-          <Login />
-        </AuthProvider>
-      </BrowserRouter>
-    );
-  };
 
   it('renders login form', () => {
     renderLogin();
@@ -76,7 +74,7 @@ describe('Login Component', () => {
     fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
     
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockRouter.push).toHaveBeenCalledWith('/dashboard');
     });
   });
 

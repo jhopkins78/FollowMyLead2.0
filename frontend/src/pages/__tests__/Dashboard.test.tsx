@@ -1,12 +1,15 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import { Dashboard } from '../Dashboard';
-import { AuthProvider } from '../../contexts/AuthContext';
-import * as api from '../../services/api';
+import { useRouter } from 'next/router';
+import Dashboard from '@/app/dashboard/page';
+import { AuthProvider } from '@/contexts/AuthContext';
+import * as api from '@/services/api';
 import { vi } from 'vitest';
 
-vi.mock('../../services/api');
+vi.mock('next/router', () => ({
+  useRouter: vi.fn()
+}));
+vi.mock('@/services/api');
 vi.mock('react-hot-toast');
 
 const mockLeads = [
@@ -32,21 +35,25 @@ const mockLeads = [
   },
 ];
 
+const mockRouter = {
+  push: vi.fn(),
+  pathname: '/dashboard'
+};
+
+const renderDashboard = () => {
+  (useRouter as jest.Mock).mockReturnValue(mockRouter);
+  return render(
+    <AuthProvider>
+      <Dashboard />
+    </AuthProvider>
+  );
+};
+
 describe('Dashboard Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     (api.getLeads as any).mockResolvedValue({ data: mockLeads });
   });
-
-  const renderDashboard = () => {
-    render(
-      <BrowserRouter>
-        <AuthProvider>
-          <Dashboard />
-        </AuthProvider>
-      </BrowserRouter>
-    );
-  };
 
   it('renders loading state initially', () => {
     renderDashboard();

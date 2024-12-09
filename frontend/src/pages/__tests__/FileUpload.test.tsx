@@ -1,37 +1,35 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import { FileUpload } from '../FileUpload';
-import { AuthProvider } from '../../contexts/AuthContext';
-import * as api from '../../services/api';
+import { useRouter } from 'next/router';
+import FileUpload from '@/app/upload/page';
+import { AuthProvider } from '@/contexts/AuthContext';
+import * as api from '@/services/api';
 import { vi } from 'vitest';
 
-vi.mock('../../services/api');
+vi.mock('next/router', () => ({
+  useRouter: vi.fn()
+}));
+vi.mock('@/services/api');
 vi.mock('react-hot-toast');
 
-const mockNavigate = vi.fn();
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-  };
-});
+const mockRouter = {
+  push: vi.fn(),
+  pathname: '/upload'
+};
+
+const renderFileUpload = () => {
+  (useRouter as jest.Mock).mockReturnValue(mockRouter);
+  return render(
+    <AuthProvider>
+      <FileUpload />
+    </AuthProvider>
+  );
+};
 
 describe('FileUpload Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-
-  const renderFileUpload = () => {
-    render(
-      <BrowserRouter>
-        <AuthProvider>
-          <FileUpload />
-        </AuthProvider>
-      </BrowserRouter>
-    );
-  };
 
   it('renders file upload interface', () => {
     renderFileUpload();
@@ -72,7 +70,7 @@ describe('FileUpload Component', () => {
     
     await waitFor(() => {
       expect(api.uploadLeads).toHaveBeenCalledWith(file);
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockRouter.push).toHaveBeenCalledWith('/dashboard');
     });
   });
 

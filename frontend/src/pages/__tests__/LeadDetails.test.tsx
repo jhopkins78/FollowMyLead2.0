@@ -1,23 +1,22 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-import { LeadDetails } from '../LeadDetails';
-import { AuthProvider } from '../../contexts/AuthContext';
-import * as api from '../../services/api';
+import { useRouter } from 'next/router';
+import LeadDetails from '@/app/leads/[id]/page';
+import { AuthProvider } from '@/contexts/AuthContext';
+import * as api from '@/services/api';
 import { vi } from 'vitest';
 
-vi.mock('../../services/api');
+vi.mock('next/router', () => ({
+  useRouter: vi.fn()
+}));
+vi.mock('@/services/api');
 vi.mock('react-hot-toast');
 
-const mockNavigate = vi.fn();
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual('react-router-dom');
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-    useParams: () => ({ id: '1' }),
-  };
-});
+const mockRouter = {
+  push: vi.fn(),
+  pathname: '/leads/[id]',
+  query: { id: '123' }
+};
 
 const mockLead = {
   id: '1',
@@ -43,21 +42,20 @@ const mockLead = {
   estimated_value: 50000,
 };
 
+const renderLeadDetails = () => {
+  (useRouter as jest.Mock).mockReturnValue(mockRouter);
+  return render(
+    <AuthProvider>
+      <LeadDetails params={{ id: '123' }} />
+    </AuthProvider>
+  );
+};
+
 describe('LeadDetails Component', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     (api.getLeadDetails as any).mockResolvedValue({ data: mockLead });
   });
-
-  const renderLeadDetails = () => {
-    render(
-      <BrowserRouter>
-        <AuthProvider>
-          <LeadDetails />
-        </AuthProvider>
-      </BrowserRouter>
-    );
-  };
 
   it('renders loading state initially', () => {
     renderLeadDetails();
@@ -136,7 +134,7 @@ describe('LeadDetails Component', () => {
     const backButton = screen.getByRole('button', { name: /back to dashboard/i });
     fireEvent.click(backButton);
     
-    expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+    expect(mockRouter.push).toHaveBeenCalledWith('/dashboard');
   });
 
   it('displays correct score color', async () => {
@@ -165,7 +163,7 @@ describe('LeadDetails Component', () => {
     renderLeadDetails();
     
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/dashboard');
+      expect(mockRouter.push).toHaveBeenCalledWith('/dashboard');
     });
   });
 });
