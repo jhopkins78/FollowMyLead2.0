@@ -21,11 +21,23 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-<<<<<<< HEAD
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
-=======
->>>>>>> origin/main
+
+# build output
+.next/
+out/
+
+# zip files
+*.zip
+
+# Lambda function artifacts
+lambda_functions/function.zip
+lambda_functions/**/venv/
+
+# environment variables
+.env
+.env.*
