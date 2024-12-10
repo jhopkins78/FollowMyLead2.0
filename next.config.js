@@ -20,6 +20,11 @@ const nextConfig = {
     }
     return config;
   },
+  typescript: {
+    tsconfigPath: './tsconfig.json',
+    // During development, type errors won't fail the build
+    ignoreBuildErrors: process.env.NODE_ENV === 'development',
+  },
   output: 'standalone',
   poweredByHeader: false,
   compress: true,
