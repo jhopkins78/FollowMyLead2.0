@@ -1,0 +1,14 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/Dashboard": "pages/Dashboard.js",
+  "/Login": "pages/Login.js",
+  "/": "pages/index.js",
+  "/Register": "pages/Register.js",
+  "/FileUpload": "pages/FileUpload.js",
+  "/LeadDetails": "pages/LeadDetails.js",
+  "/Homepage": "pages/Homepage.js",
+  "/Features": "pages/Features.js",
+  "/_document": "pages/_document.js",
+  "/Insights": "pages/Insights.js"
+}

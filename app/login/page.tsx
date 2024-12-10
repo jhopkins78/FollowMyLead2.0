@@ -170,3 +170,4 @@ export default function LogIn() {
       </footer>
     </div>
   )
+}
